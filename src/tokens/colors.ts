@@ -19,7 +19,22 @@ export const colors = {
   // Error colors - used for error states and validation
   error: {
     main: '#dc2626',    // Red - main error color
+    hover: '#b91c1c',   // Darker red for hover states
     light: '#fef2f2'    // Light red for error backgrounds
+  },
+  
+  // Success colors - used for success states and confirmations
+  success: {
+    main: '#16a34a',    // Green - main success color
+    hover: '#15803d',   // Darker green for hover states
+    light: '#f0fdf4'    // Light green for success backgrounds
+  },
+  
+  // Warning colors - used for warning states and alerts
+  warning: {
+    main: '#d97706',    // Orange - main warning color
+    hover: '#b45309',   // Darker orange for hover states
+    light: '#fffbeb'    // Light orange for warning backgrounds
   },
   
   // Text colors - used for all text content

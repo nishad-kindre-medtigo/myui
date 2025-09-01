@@ -1,5 +1,5 @@
 {
-  "name": "myui",
+  "name": "my-ui",
   "version": "1.0.0",
   "description": "A simple, beginner-friendly React UI component library",
   "type": "module",
@@ -7,7 +7,9 @@
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "docs"
   ],
   "scripts": {
     "build": "rollup -c",
@@ -24,8 +26,16 @@
     "typescript",
     "library"
   ],
-  "author": "",
+  "author": "Nishad Kindre",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nishad-kindre-medtigo/myui"
+  },
+  "homepage": "https://github.com/nishad-kindre-medtigo/myui#readme",
+  "bugs": {
+    "url": "https://github.com/nishad-kindre-medtigo/myui/issues"
+  },
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"

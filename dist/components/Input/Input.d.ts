@@ -11,6 +11,7 @@ export interface InputProps {
     errorMessage?: string;
     helperText?: string;
     required?: boolean;
+    style?: React.CSSProperties;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
     onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;

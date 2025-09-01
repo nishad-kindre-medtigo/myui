@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Component Demo - New Features</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .demo-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+        }
+        .demo-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .demo-code {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+        }
+        .feature-title {
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+    </style>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <h1>🔥 MyUI Button Component - New Features Demo</h1>
+    
+    <div class="demo-section">
+        <h2 class="feature-title">1. Size Boolean Props</h2>
+        <p>Now you can use <code>small</code>, <code>medium</code>, or <code>large</code> as boolean props instead of the size prop:</p>
+        <div class="demo-code">
+            &lt;Button small&gt;Small Button&lt;/Button&gt;<br>
+            &lt;Button medium&gt;Medium Button&lt;/Button&gt;<br>
+            &lt;Button large&gt;Large Button&lt;/Button&gt;
+        </div>
+        <div id="size-demo" class="demo-buttons"></div>
+    </div>
+
+    <div class="demo-section">
+        <h2 class="feature-title">2. New Variants</h2>
+        <p>Added new button variants: error, success, warning, text, and link:</p>
+        <div class="demo-code">
+            &lt;Button variant="error"&gt;Error&lt;/Button&gt;<br>
+            &lt;Button variant="success"&gt;Success&lt;/Button&gt;<br>
+            &lt;Button variant="warning"&gt;Warning&lt;/Button&gt;<br>
+            &lt;Button variant="text"&gt;Text&lt;/Button&gt;<br>
+            &lt;Button variant="link"&gt;Link&lt;/Button&gt;
+        </div>
+        <div id="variants-demo" class="demo-buttons"></div>
+    </div>
+
+    <div class="demo-section">
+        <h2 class="feature-title">3. Icon Support</h2>
+        <p>Buttons can now have icons with configurable positioning:</p>
+        <div class="demo-code">
+            &lt;Button icon={&lt;span&gt;🔥&lt;/span&gt;} /&gt; {/* Icon only */}<br>
+            &lt;Button icon={&lt;span&gt;🔥&lt;/span&gt;} iconLocation="start"&gt;Start Icon&lt;/Button&gt;<br>
+            &lt;Button icon={&lt;span&gt;🔥&lt;/span&gt;} iconLocation="end"&gt;End Icon&lt;/Button&gt;
+        </div>
+        <div id="icons-demo" class="demo-buttons"></div>
+    </div>
+
+    <div class="demo-section">
+        <h2 class="feature-title">4. Custom Styles</h2>
+        <p>The style prop allows you to override default styling:</p>
+        <div class="demo-code">
+            &lt;Button style={{backgroundColor: 'purple', color: 'white'}}&gt;Custom Style&lt;/Button&gt;
+        </div>
+        <div id="styles-demo" class="demo-buttons"></div>
+    </div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        // Mock Button component for demo (simplified version)
+        const Button = ({ 
+            children, 
+            variant = 'primary', 
+            size, 
+            small, 
+            medium, 
+            large,
+            icon,
+            iconLocation = 'start',
+            style = {},
+            ...props 
+        }) => {
+            // Determine actual size
+            const actualSize = small ? 'small' : large ? 'large' : medium ? 'medium' : size || 'medium';
+            
+            // Base styles
+            const baseStyles = {
+                border: 'none',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+                fontWeight: 500,
+                transition: 'all 0.2s ease-in-out',
+                outline: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: icon && children ? '8px' : '0',
+                textDecoration: 'none',
+            };
+
+            // Size styles
+            const sizeStyles = {
+                small: { height: '32px', padding: icon && !children ? '0' : '0 12px', fontSize: '14px', minWidth: icon && !children ? '32px' : 'auto' },
+                medium: { height: '40px', padding: icon && !children ? '0' : '0 16px', fontSize: '16px', minWidth: icon && !children ? '40px' : 'auto' },
+                large: { height: '48px', padding: icon && !children ? '0' : '0 20px', fontSize: '18px', minWidth: icon && !children ? '48px' : 'auto' },
+            };
+
+            // Variant styles
+            const variantStyles = {
+                primary: { backgroundColor: '#2563eb', color: 'white', border: '1px solid #2563eb' },
+                secondary: { backgroundColor: '#f1f5f9', color: '#1f2937', border: '1px solid #d1d5db' },
+                outline: { backgroundColor: 'transparent', color: '#2563eb', border: '1px solid #2563eb' },
+                error: { backgroundColor: '#dc2626', color: 'white', border: '1px solid #dc2626' },
+                success: { backgroundColor: '#16a34a', color: 'white', border: '1px solid #16a34a' },
+                warning: { backgroundColor: '#d97706', color: 'white', border: '1px solid #d97706' },
+                text: { backgroundColor: 'transparent', color: '#1f2937', border: '1px solid transparent' },
+                link: { backgroundColor: 'transparent', color: '#2563eb', border: '1px solid transparent', textDecoration: 'none' },
+            };
+
+            const finalStyles = {
+                ...baseStyles,
+                ...sizeStyles[actualSize],
+                ...variantStyles[variant],
+                ...style,
+            };
+
+            const handleMouseEnter = (e) => {
+                if (variant === 'link') {
+                    e.target.style.textDecoration = 'underline';
+                } else if (variant === 'text') {
+                    e.target.style.backgroundColor = '#f1f5f9';
+                } else {
+                    e.target.style.opacity = '0.9';
+                }
+            };
+
+            const handleMouseLeave = (e) => {
+                if (variant === 'link') {
+                    e.target.style.textDecoration = 'none';
+                } else if (variant === 'text') {
+                    e.target.style.backgroundColor = 'transparent';
+                } else {
+                    e.target.style.opacity = '1';
+                }
+            };
+
+            const renderContent = () => {
+                if (!icon) return children;
+                if (!children) return icon;
+                
+                if (iconLocation === 'end') {
+                    return <>{children}{icon}</>;
+                }
+                return <>{icon}{children}</>;
+            };
+
+            return (
+                <button 
+                    style={finalStyles}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                    {...props}
+                >
+                    {renderContent()}
+                </button>
+            );
+        };
+
+        // Demo components
+        const SizeDemo = () => (
+            <div className="demo-buttons">
+                <Button small>Small Button</Button>
+                <Button medium>Medium Button</Button>
+                <Button large>Large Button</Button>
+            </div>
+        );
+
+        const VariantsDemo = () => (
+            <div className="demo-buttons">
+                <Button variant="primary">Primary</Button>
+                <Button variant="secondary">Secondary</Button>
+                <Button variant="outline">Outline</Button>
+                <Button variant="error">Error</Button>
+                <Button variant="success">Success</Button>
+                <Button variant="warning">Warning</Button>
+                <Button variant="text">Text</Button>
+                <Button variant="link">Link</Button>
+            </div>
+        );
+
+        const IconsDemo = () => (
+            <div className="demo-buttons">
+                <Button icon={<span>🔥</span>} />
+                <Button icon={<span>🔥</span>} iconLocation="start">Start Icon</Button>
+                <Button icon={<span>🔥</span>} iconLocation="end">End Icon</Button>
+                <Button icon={<span>📧</span>} variant="outline">Email</Button>
+                <Button icon={<span>💾</span>} variant="success">Save</Button>
+            </div>
+        );
+
+        const StylesDemo = () => (
+            <div className="demo-buttons">
+                <Button style={{backgroundColor: 'purple', color: 'white'}}>Purple Button</Button>
+                <Button style={{backgroundColor: 'linear-gradient(45deg, #ff6b6b, #4ecdc4)', color: 'white', border: 'none'}}>Gradient Button</Button>
+                <Button style={{backgroundColor: 'transparent', color: '#ff6b6b', border: '2px dashed #ff6b6b'}}>Dashed Border</Button>
+            </div>
+        );
+
+        // Render demos
+        ReactDOM.render(<SizeDemo />, document.getElementById('size-demo'));
+        ReactDOM.render(<VariantsDemo />, document.getElementById('variants-demo'));
+        ReactDOM.render(<IconsDemo />, document.getElementById('icons-demo'));
+        ReactDOM.render(<StylesDemo />, document.getElementById('styles-demo'));
+    </script>
+</body>
+</html>

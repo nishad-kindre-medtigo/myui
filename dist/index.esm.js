@@ -18,7 +18,20 @@ const colors = {
     // Error colors - used for error states and validation
     error: {
         main: '#dc2626', // Red - main error color
+        hover: '#b91c1c', // Darker red for hover states
         light: '#fef2f2' // Light red for error backgrounds
+    },
+    // Success colors - used for success states and confirmations
+    success: {
+        main: '#16a34a', // Green - main success color
+        hover: '#15803d', // Darker green for hover states
+        light: '#f0fdf4' // Light green for success backgrounds
+    },
+    // Warning colors - used for warning states and alerts
+    warning: {
+        main: '#d97706', // Orange - main warning color
+        hover: '#b45309', // Darker orange for hover states
+        light: '#fffbeb' // Light orange for warning backgrounds
     },
     // Text colors - used for all text content
     text: {
@@ -60,8 +73,19 @@ const typography = {
     }
 };
 
+// Helper function to determine the actual size based on props
+const getActualSize = (size, small, medium, large) => {
+    // Priority: explicit boolean props > size prop > default medium
+    if (small)
+        return 'small';
+    if (large)
+        return 'large';
+    if (medium)
+        return 'medium';
+    return size || 'medium';
+};
 // Helper function to get styles based on variant and size
-const getButtonStyles = (variant, size, disabled) => {
+const getButtonStyles = (variant, size, disabled, hasIcon, hasText) => {
     // Base styles that apply to all buttons
     const baseStyles = {
         border: 'none',
@@ -75,23 +99,28 @@ const getButtonStyles = (variant, size, disabled) => {
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'center',
+        textDecoration: 'none',
+        gap: hasIcon && hasText ? '8px' : '0',
     };
     // Size-specific styles
     const sizeStyles = {
         small: {
-            height: '32px',
-            padding: '0 12px',
+            height: hasIcon && !hasText ? '32px' : '32px',
+            padding: hasIcon && !hasText ? '0' : '0 12px',
             fontSize: typography.fontSize.sm,
+            minWidth: hasIcon && !hasText ? '32px' : 'auto',
         },
         medium: {
-            height: '40px',
-            padding: '0 16px',
+            height: hasIcon && !hasText ? '40px' : '40px',
+            padding: hasIcon && !hasText ? '0' : '0 16px',
             fontSize: typography.fontSize.md,
+            minWidth: hasIcon && !hasText ? '40px' : 'auto',
         },
         large: {
-            height: '48px',
-            padding: '0 20px',
+            height: hasIcon && !hasText ? '48px' : '48px',
+            padding: hasIcon && !hasText ? '0' : '0 20px',
             fontSize: typography.fontSize.lg,
+            minWidth: hasIcon && !hasText ? '48px' : 'auto',
         },
     };
     // Variant-specific styles
@@ -110,6 +139,32 @@ const getButtonStyles = (variant, size, disabled) => {
             backgroundColor: 'transparent',
             color: colors.primary.main,
             border: `1px solid ${colors.primary.main}`,
+        },
+        error: {
+            backgroundColor: colors.error.main,
+            color: colors.background.white,
+            border: `1px solid ${colors.error.main}`,
+        },
+        success: {
+            backgroundColor: colors.success.main,
+            color: colors.background.white,
+            border: `1px solid ${colors.success.main}`,
+        },
+        warning: {
+            backgroundColor: colors.warning.main,
+            color: colors.background.white,
+            border: `1px solid ${colors.warning.main}`,
+        },
+        text: {
+            backgroundColor: 'transparent',
+            color: colors.text.primary,
+            border: '1px solid transparent',
+        },
+        link: {
+            backgroundColor: 'transparent',
+            color: colors.primary.main,
+            border: '1px solid transparent',
+            textDecoration: 'none',
         },
     };
     // Combine all styles
@@ -133,30 +188,62 @@ const getHoverStyles = (variant) => {
         outline: {
             backgroundColor: colors.primary.light,
         },
+        error: {
+            backgroundColor: colors.error.hover,
+            borderColor: colors.error.hover,
+        },
+        success: {
+            backgroundColor: colors.success.hover,
+            borderColor: colors.success.hover,
+        },
+        warning: {
+            backgroundColor: colors.warning.hover,
+            borderColor: colors.warning.hover,
+        },
+        text: {
+            backgroundColor: colors.secondary.light,
+        },
+        link: {
+            textDecoration: 'underline',
+        },
     };
     return hoverStyles[variant];
 };
 // Main Button component
 const Button = ({ children, variant = 'primary', // Default to primary variant
-size = 'medium', // Default to medium size
+size, // Size prop (can be overridden by boolean props)
+small, // Boolean prop for small size
+medium, // Boolean prop for medium size
+large, // Boolean prop for large size
 disabled = false, // Default to not disabled
 type = 'button', // Default to button type
-onClick, ...props // Spread any additional props
+onClick, icon, // Icon element
+iconLocation = 'start', // Default icon location
+style, // Custom styles
+...props // Spread any additional props
  }) => {
+    // Determine the actual size to use
+    const actualSize = getActualSize(size, small, medium, large);
+    // Check if we have icon and/or text
+    const hasIcon = !!icon;
+    const hasText = !!children;
     // Get the base styles for this button configuration
-    const buttonStyles = getButtonStyles(variant, size, disabled);
+    const buttonStyles = getButtonStyles(variant, actualSize, disabled, hasIcon, hasText);
     const hoverStyles = getHoverStyles(variant);
+    // Merge custom styles with default styles (custom styles override defaults)
+    const finalStyles = style ? { ...buttonStyles, ...style } : buttonStyles;
     // Handle mouse enter (hover) event
     const handleMouseEnter = (e) => {
         if (!disabled) {
-            Object.assign(e.currentTarget.style, hoverStyles);
+            const combinedHoverStyles = style ? { ...hoverStyles, ...style } : hoverStyles;
+            Object.assign(e.currentTarget.style, combinedHoverStyles);
         }
     };
     // Handle mouse leave event
     const handleMouseLeave = (e) => {
         if (!disabled) {
             // Reset to original styles
-            Object.assign(e.currentTarget.style, getButtonStyles(variant, size, false));
+            Object.assign(e.currentTarget.style, finalStyles);
         }
     };
     // Handle focus event for accessibility
@@ -169,7 +256,25 @@ onClick, ...props // Spread any additional props
     const handleBlur = (e) => {
         e.currentTarget.style.boxShadow = 'none';
     };
-    return (React.createElement("button", { type: type, style: buttonStyles, disabled: disabled, onClick: onClick, onMouseEnter: handleMouseEnter, onMouseLeave: handleMouseLeave, onFocus: handleFocus, onBlur: handleBlur, "aria-disabled": disabled, ...props }, children));
+    // Render icon and text based on iconLocation
+    const renderContent = () => {
+        if (!hasIcon) {
+            return children;
+        }
+        if (!hasText) {
+            return icon;
+        }
+        if (iconLocation === 'end') {
+            return (React.createElement(React.Fragment, null,
+                children,
+                icon));
+        }
+        // Default: start position
+        return (React.createElement(React.Fragment, null,
+            icon,
+            children));
+    };
+    return (React.createElement("button", { type: type, style: finalStyles, disabled: disabled, onClick: onClick, onMouseEnter: handleMouseEnter, onMouseLeave: handleMouseLeave, onFocus: handleFocus, onBlur: handleBlur, "aria-disabled": disabled, ...props }, renderContent()));
 };
 
 // Helper function to get input styles based on size and state
@@ -237,6 +342,7 @@ size = 'medium', // Default to medium size
 disabled = false, // Default to not disabled
 error = false, // Default to no error
 errorMessage, helperText, required = false, // Default to not required
+style, // Custom styles
 onChange, onFocus, onBlur, ...props // Spread any additional props
  }) => {
     // Generate unique ID for accessibility (label-input association)
@@ -246,6 +352,8 @@ onChange, onFocus, onBlur, ...props // Spread any additional props
     const labelStyles = getLabelStyles();
     const inputStyles = getInputStyles(size, error, disabled);
     const textStyles = getTextStyles(error);
+    // Merge custom styles with default styles (custom styles override defaults)
+    const finalInputStyles = style ? { ...inputStyles, ...style } : inputStyles;
     // Handle focus event
     const handleFocus = (e) => {
         if (!disabled) {
@@ -266,7 +374,7 @@ onChange, onFocus, onBlur, ...props // Spread any additional props
         label && (React.createElement("label", { htmlFor: inputId, style: labelStyles },
             label,
             required && (React.createElement("span", { style: { color: colors.error.main, marginLeft: '2px' } }, "*")))),
-        React.createElement("input", { id: inputId, type: type, placeholder: placeholder, value: value, defaultValue: defaultValue, disabled: disabled, required: required, style: inputStyles, onChange: onChange, onFocus: handleFocus, onBlur: handleBlur, "aria-invalid": error, "aria-describedby": displayText ? `${inputId}-text` : undefined, "aria-required": required, ...props }),
+        React.createElement("input", { id: inputId, type: type, placeholder: placeholder, value: value, defaultValue: defaultValue, disabled: disabled, required: required, style: finalInputStyles, onChange: onChange, onFocus: handleFocus, onBlur: handleBlur, "aria-invalid": error, "aria-describedby": displayText ? `${inputId}-text` : undefined, "aria-required": required, ...props }),
         displayText && (React.createElement("span", { id: `${inputId}-text`, style: textStyles, 
             // Accessibility attributes
             role: error ? 'alert' : undefined, "aria-live": error ? 'polite' : undefined }, displayText))));

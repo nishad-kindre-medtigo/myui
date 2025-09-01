@@ -14,6 +14,7 @@ export interface InputProps {
   errorMessage?: string;                                            // Error message to display
   helperText?: string;                                              // Helper text below input
   required?: boolean;                                               // Whether input is required
+  style?: React.CSSProperties;                                     // Custom styles to override defaults
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void; // Change handler
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;   // Focus handler
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;    // Blur handler
@@ -97,6 +98,7 @@ export const Input: React.FC<InputProps> = ({
   errorMessage,
   helperText,
   required = false,        // Default to not required
+  style,                   // Custom styles
   onChange,
   onFocus,
   onBlur,
@@ -110,6 +112,9 @@ export const Input: React.FC<InputProps> = ({
   const labelStyles = getLabelStyles();
   const inputStyles = getInputStyles(size, error, disabled);
   const textStyles = getTextStyles(error);
+
+  // Merge custom styles with default styles (custom styles override defaults)
+  const finalInputStyles = style ? { ...inputStyles, ...style } : inputStyles;
 
   // Handle focus event
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -156,7 +161,7 @@ export const Input: React.FC<InputProps> = ({
         defaultValue={defaultValue}
         disabled={disabled}
         required={required}
-        style={inputStyles}
+        style={finalInputStyles}
         onChange={onChange}
         onFocus={handleFocus}
         onBlur={handleBlur}

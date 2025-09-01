@@ -1,12 +1,18 @@
 import React from 'react';
 
 interface ButtonProps {
-    children: React.ReactNode;
-    variant?: 'primary' | 'secondary' | 'outline';
+    children?: React.ReactNode;
+    variant?: 'primary' | 'secondary' | 'outline' | 'error' | 'success' | 'warning' | 'text' | 'link';
     size?: 'small' | 'medium' | 'large';
+    small?: boolean;
+    medium?: boolean;
+    large?: boolean;
     disabled?: boolean;
     type?: 'button' | 'submit' | 'reset';
     onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    icon?: React.ReactNode;
+    iconLocation?: 'start' | 'end';
+    style?: React.CSSProperties;
 }
 declare const Button: React.FC<ButtonProps>;
 
@@ -22,6 +28,7 @@ interface InputProps {
     errorMessage?: string;
     helperText?: string;
     required?: boolean;
+    style?: React.CSSProperties;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
     onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
@@ -41,6 +48,17 @@ declare const colors: {
     };
     error: {
         main: string;
+        hover: string;
+        light: string;
+    };
+    success: {
+        main: string;
+        hover: string;
+        light: string;
+    };
+    warning: {
+        main: string;
+        hover: string;
         light: string;
     };
     text: {

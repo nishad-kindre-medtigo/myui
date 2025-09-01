@@ -11,6 +11,17 @@ export declare const colors: {
     };
     error: {
         main: string;
+        hover: string;
+        light: string;
+    };
+    success: {
+        main: string;
+        hover: string;
+        light: string;
+    };
+    warning: {
+        main: string;
+        hover: string;
         light: string;
     };
     text: {
