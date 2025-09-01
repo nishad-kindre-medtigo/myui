@@ -7,10 +7,28 @@ A simple, beginner-friendly React UI component library built with TypeScript. Pe
 - **🧩 Simple Components** - Button and Input components ready to use
 - **📘 TypeScript Support** - Full type safety and IntelliSense
 - **♿ Accessible** - Built with accessibility best practices
-- **🧪 Well Tested** - Comprehensive test coverage
+- **🧪 Well Tested** - Comprehensive test coverage with 37+ test cases
 - **📚 Storybook Ready** - Interactive documentation
-- **🎨 Customizable** - Easy to customize with design tokens
+- **🎨 Customizable** - Easy to customize with design tokens and style prop
 - **🌱 Beginner Friendly** - Extensive comments and clear code structure
+- **🔥 Enhanced Button** - Icon support, new variants, size boolean props
+- **🎯 Custom Styling** - Override any default styles with the style prop
+
+## 🆕 What's New in v1.0.0
+
+### Enhanced Button Component
+- **🎯 Size Boolean Props** - Use `<Button small>` instead of `<Button size="small">`
+- **🎨 New Variants** - Added `error`, `success`, `warning`, `text`, and `link` variants
+- **🔥 Icon Support** - Add icons with configurable positioning (`start` or `end`)
+- **✨ Custom Styling** - Override any default styles with the `style` prop
+- **🔄 Backward Compatible** - All existing code continues to work
+
+### Enhanced Input Component
+- **✨ Custom Styling** - Override default styles with the `style` prop
+
+### Expanded Design System
+- **🎨 New Color Tokens** - Added success and warning color palettes
+- **📚 Comprehensive Tests** - 37+ test cases covering all functionality
 
 ## 📦 Installation
 
@@ -26,14 +44,31 @@ import { Button, Input } from 'myui';
 function App() {
   return (
     <div>
-      <Button variant="primary" onClick={() => alert('Hello!')}>
-        Click me!
+      {/* Enhanced Button with new features */}
+      <Button 
+        variant="success" 
+        large 
+        icon={<span>✓</span>}
+        onClick={() => alert('Success!')}
+      >
+        Save Changes
       </Button>
       
+      {/* Button with custom styling */}
+      <Button 
+        style={{backgroundColor: 'purple', color: 'white'}}
+        icon={<span>🚀</span>}
+        iconLocation="end"
+      >
+        Launch
+      </Button>
+      
+      {/* Input with custom styling */}
       <Input 
         label="Email"
         type="email"
         placeholder="Enter your email"
+        style={{borderColor: 'blue', borderWidth: '2px'}}
       />
     </div>
   );
@@ -57,7 +92,7 @@ Comprehensive documentation is available in the `docs/` folder:
 
 ### Button
 
-A versatile button component with multiple variants and sizes.
+A versatile button component with multiple variants, sizes, icon support, and full customization options.
 
 ```jsx
 import { Button } from 'myui';
@@ -65,19 +100,45 @@ import { Button } from 'myui';
 // Basic usage
 <Button>Click me</Button>
 
-// With variants
-<Button variant="primary">Primary</Button>
-<Button variant="secondary">Secondary</Button>
-<Button variant="outline">Outline</Button>
+// Size using boolean props (NEW!)
+<Button small>Small Button</Button>
+<Button medium>Medium Button</Button>
+<Button large>Large Button</Button>
 
-// With sizes
+// Traditional size prop (still supported)
 <Button size="small">Small</Button>
 <Button size="medium">Medium</Button>
 <Button size="large">Large</Button>
 
-// With click handler
-<Button onClick={() => console.log('Clicked!')}>
-  Handle Click
+// All variants including new ones
+<Button variant="primary">Primary</Button>
+<Button variant="secondary">Secondary</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="error">Error</Button>
+<Button variant="success">Success</Button>
+<Button variant="warning">Warning</Button>
+<Button variant="text">Text Button</Button>
+<Button variant="link">Link Button</Button>
+
+// Icon support (NEW!)
+<Button icon={<span>🔥</span>} />  {/* Icon only */}
+<Button icon={<span>🔥</span>}>Start Icon</Button>  {/* Icon at start */}
+<Button icon={<span>🔥</span>} iconLocation="end">End Icon</Button>
+
+// Custom styling (NEW!)
+<Button style={{backgroundColor: 'purple', color: 'white'}}>
+  Custom Styled
+</Button>
+
+// Complex combinations
+<Button 
+  variant="success" 
+  large 
+  icon={<span>✓</span>} 
+  iconLocation="start"
+  onClick={() => console.log('Success!')}
+>
+  Save Changes
 </Button>
 ```
 
@@ -85,9 +146,15 @@ import { Button } from 'myui';
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `children` | `React.ReactNode` | - | Content inside the button |
-| `variant` | `'primary' \| 'secondary' \| 'outline'` | `'primary'` | Visual style variant |
-| `size` | `'small' \| 'medium' \| 'large'` | `'medium'` | Button size |
+| `children` | `React.ReactNode` | - | Content inside the button (optional for icon-only) |
+| `variant` | `'primary' \| 'secondary' \| 'outline' \| 'error' \| 'success' \| 'warning' \| 'text' \| 'link'` | `'primary'` | Visual style variant |
+| `size` | `'small' \| 'medium' \| 'large'` | `'medium'` | Button size (traditional way) |
+| `small` | `boolean` | `false` | **NEW:** Boolean prop for small size (overrides size prop) |
+| `medium` | `boolean` | `false` | **NEW:** Boolean prop for medium size (overrides size prop) |
+| `large` | `boolean` | `false` | **NEW:** Boolean prop for large size (overrides size prop) |
+| `icon` | `React.ReactNode` | - | **NEW:** Icon element to display |
+| `iconLocation` | `'start' \| 'end'` | `'start'` | **NEW:** Position of icon relative to text |
+| `style` | `React.CSSProperties` | - | **NEW:** Custom styles to override defaults |
 | `disabled` | `boolean` | `false` | Whether button is disabled |
 | `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | HTML button type |
 | `onClick` | `(event: MouseEvent) => void` | - | Click event handler |
@@ -132,6 +199,7 @@ import { Input } from 'myui';
 | `defaultValue` | `string` | - | Default value for uncontrolled usage |
 | `type` | `'text' \| 'email' \| 'password' \| 'number'` | `'text'` | HTML input type |
 | `size` | `'small' \| 'medium' \| 'large'` | `'medium'` | Input size |
+| `style` | `React.CSSProperties` | - | **NEW:** Custom styles to override defaults |
 | `disabled` | `boolean` | `false` | Whether input is disabled |
 | `error` | `boolean` | `false` | Whether input has error state |
 | `errorMessage` | `string` | - | Error message to display |
@@ -163,6 +231,13 @@ colors.primary.hover    // #1d4ed8
 colors.primary.light    // #dbeafe
 colors.secondary.main   // #64748b
 colors.error.main       // #dc2626
+colors.error.hover      // #b91c1c (NEW!)
+colors.success.main     // #16a34a (NEW!)
+colors.success.hover    // #15803d (NEW!)
+colors.success.light    // #f0fdf4 (NEW!)
+colors.warning.main     // #d97706 (NEW!)
+colors.warning.hover    // #b45309 (NEW!)
+colors.warning.light    // #fffbeb (NEW!)
 colors.text.primary     // #1f2937
 colors.border.default   // #d1d5db
 // ... and more
@@ -266,6 +341,7 @@ function LoginForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Enter your email"
+        style={{borderRadius: '8px'}}
         required
       />
       
@@ -278,10 +354,68 @@ function LoginForm() {
         required
       />
       
-      <Button type="submit" variant="primary">
+      <Button 
+        type="submit" 
+        variant="primary"
+        large
+        icon={<span>🔐</span>}
+        iconLocation="start"
+      >
         Sign In
       </Button>
     </form>
+  );
+}
+```
+
+### Action Buttons Example
+
+```jsx
+import { Button } from 'myui';
+
+function ActionButtons() {
+  return (
+    <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+      {/* Success actions */}
+      <Button variant="success" icon={<span>✓</span>}>
+        Approve
+      </Button>
+      
+      <Button variant="success" small icon={<span>💾</span>} iconLocation="end">
+        Save
+      </Button>
+      
+      {/* Warning actions */}
+      <Button variant="warning" icon={<span>⚠️</span>}>
+        Warning
+      </Button>
+      
+      {/* Error actions */}
+      <Button variant="error" icon={<span>🗑️</span>} iconLocation="end">
+        Delete
+      </Button>
+      
+      {/* Minimal actions */}
+      <Button variant="text" icon={<span>📝</span>}>
+        Edit
+      </Button>
+      
+      <Button variant="link" icon={<span>🔗</span>} iconLocation="end">
+        View Details
+      </Button>
+      
+      {/* Custom styled */}
+      <Button 
+        style={{
+          background: 'linear-gradient(45deg, #667eea 0%, #764ba2 100%)',
+          color: 'white',
+          borderRadius: '20px'
+        }}
+        icon={<span>🚀</span>}
+      >
+        Launch
+      </Button>
+    </div>
   );
 }
 ```
@@ -294,16 +428,31 @@ import { Button } from 'myui';
 function ButtonShowcase() {
   return (
     <div style={{ display: 'grid', gap: '16px', gridTemplateColumns: 'repeat(3, 1fr)' }}>
+      {/* Traditional variants */}
       <Button variant="primary">Primary</Button>
       <Button variant="secondary">Secondary</Button>
       <Button variant="outline">Outline</Button>
       
-      <Button size="small">Small</Button>
-      <Button size="medium">Medium</Button>
-      <Button size="large">Large</Button>
+      {/* New variants */}
+      <Button variant="error">Error</Button>
+      <Button variant="success">Success</Button>
+      <Button variant="warning">Warning</Button>
+      <Button variant="text">Text</Button>
+      <Button variant="link">Link</Button>
       
+      {/* Size boolean props */}
+      <Button small>Small</Button>
+      <Button medium>Medium</Button>
+      <Button large>Large</Button>
+      
+      {/* Icon examples */}
+      <Button icon={<span>🔥</span>} />
+      <Button icon={<span>📧</span>}>Email</Button>
+      <Button icon={<span>💾</span>} iconLocation="end">Save</Button>
+      
+      {/* Custom styling */}
+      <Button style={{backgroundColor: 'purple', color: 'white'}}>Custom</Button>
       <Button disabled>Disabled</Button>
-      <Button onClick={() => alert('Clicked!')}>With Handler</Button>
       <Button type="submit">Submit</Button>
     </div>
   );

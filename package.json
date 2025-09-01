@@ -1,7 +1,7 @@
 {
-  "name": "my-ui",
-  "version": "1.0.0",
-  "description": "A simple, beginner-friendly React UI component library",
+  "name": "@nishadkindremedtigo/myui",
+  "version": "1.1.0",
+  "description": "A modern React UI component library with enhanced Button component featuring icon support, new variants, and complete customization options",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -9,6 +9,7 @@
   "files": [
     "dist",
     "README.md",
+    "CHANGELOG.md",
     "docs"
   ],
   "scripts": {
@@ -24,7 +25,12 @@
     "ui",
     "components",
     "typescript",
-    "library"
+    "library",
+    "button",
+    "input",
+    "icons",
+    "customizable",
+    "design-system"
   ],
   "author": "Nishad Kindre",
   "license": "MIT",
