@@ -5,8 +5,9 @@ The Button component is like a clickable rectangle that users can press to trigg
 ## 🎯 What is a Button?
 
 A button is an interactive element that users click to:
+
 - Submit forms (like "Send Message")
-- Navigate to other pages (like "Learn More") 
+- Navigate to other pages (like "Learn More")
 - Trigger actions (like "Delete Item")
 - Open modals or dialogs (like "Show Details")
 
@@ -16,15 +17,12 @@ A button is an interactive element that users click to:
 import { Button } from 'myui';
 
 function MyComponent() {
-  return (
-    <Button onClick={() => alert('Hello!')}>
-      Click Me!
-    </Button>
-  );
+  return <Button onClick={() => alert('Hello!')}>Click Me!</Button>;
 }
 ```
 
 **What happens here:**
+
 1. We import the Button component
 2. We add text inside the button ("Click Me!")
 3. We tell it what to do when clicked (show an alert)
@@ -34,30 +32,37 @@ function MyComponent() {
 Buttons come in 3 different styles to show different levels of importance:
 
 ### Primary Button (Most Important)
+
 ```javascript
 <Button variant="primary">Save Changes</Button>
 ```
+
 - **When to use:** Main actions like "Submit", "Save", "Buy Now"
 - **Appearance:** Blue background with white text
 - **Example:** The "Submit" button on a contact form
 
 ### Secondary Button (Less Important)
+
 ```javascript
 <Button variant="secondary">Cancel</Button>
 ```
+
 - **When to use:** Secondary actions like "Cancel", "Back", "Skip"
 - **Appearance:** Gray background with dark text
 - **Example:** The "Cancel" button next to a "Save" button
 
 ### Outline Button (Subtle Actions)
+
 ```javascript
 <Button variant="outline">Learn More</Button>
 ```
+
 - **When to use:** Tertiary actions like "Learn More", "View Details"
 - **Appearance:** Transparent background with colored border
 - **Example:** A "Learn More" link that's styled as a button
 
 ### Visual Comparison
+
 ```javascript
 function ButtonVariants() {
   return (
@@ -75,27 +80,33 @@ function ButtonVariants() {
 Choose the right size based on the importance and available space:
 
 ### Small Buttons
+
 ```javascript
 <Button size="small">Small</Button>
 ```
+
 - **Height:** 32px
 - **When to use:** Compact interfaces, toolbar buttons, table actions
 - **Example:** "Edit" button in a data table row
 
 ### Medium Buttons (Default)
+
 ```javascript
 <Button size="medium">Medium</Button>
 // or just
 <Button>Medium</Button>
 ```
+
 - **Height:** 40px
 - **When to use:** Most common use cases, forms, cards
 - **Example:** "Submit" button in a contact form
 
 ### Large Buttons
+
 ```javascript
 <Button size="large">Large</Button>
 ```
+
 - **Height:** 48px
 - **When to use:** Hero sections, mobile interfaces, important actions
 - **Example:** "Get Started" button on a landing page
@@ -104,18 +115,19 @@ Choose the right size based on the importance and available space:
 
 Here's every option you can use with the Button component:
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | text/elements | required | What appears inside the button |
-| `variant` | `'primary'` \| `'secondary'` \| `'outline'` | `'primary'` | Button style |
-| `size` | `'small'` \| `'medium'` \| `'large'` | `'medium'` | Button size |
-| `disabled` | boolean | `false` | Makes button unclickable |
-| `type` | `'button'` \| `'submit'` \| `'reset'` | `'button'` | HTML button type |
-| `onClick` | function | - | Function to run when clicked |
+| Prop       | Type                                        | Default     | Description                    |
+| ---------- | ------------------------------------------- | ----------- | ------------------------------ |
+| `children` | text/elements                               | required    | What appears inside the button |
+| `variant`  | `'primary'` \| `'secondary'` \| `'outline'` | `'primary'` | Button style                   |
+| `size`     | `'small'` \| `'medium'` \| `'large'`        | `'medium'`  | Button size                    |
+| `disabled` | boolean                                     | `false`     | Makes button unclickable       |
+| `type`     | `'button'` \| `'submit'` \| `'reset'`       | `'button'`  | HTML button type               |
+| `onClick`  | function                                    | -           | Function to run when clicked   |
 
 ## 📚 Real Examples
 
 ### 1. Form Buttons
+
 ```javascript
 function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -133,22 +145,13 @@ function ContactForm() {
   return (
     <form>
       {/* Form inputs would go here */}
-      
+
       <div style={{ display: 'flex', gap: '10px' }}>
-        <Button 
-          variant="primary" 
-          type="submit"
-          onClick={handleSubmit}
-          disabled={submitted}
-        >
+        <Button variant="primary" type="submit" onClick={handleSubmit} disabled={submitted}>
           {submitted ? 'Sent!' : 'Send Message'}
         </Button>
-        
-        <Button 
-          variant="secondary" 
-          type="reset"
-          onClick={handleReset}
-        >
+
+        <Button variant="secondary" type="reset" onClick={handleReset}>
           Reset
         </Button>
       </div>
@@ -158,27 +161,20 @@ function ContactForm() {
 ```
 
 ### 2. Navigation Buttons
+
 ```javascript
 function ProductCard({ product }) {
   return (
     <div className="product-card">
       <h3>{product.name}</h3>
       <p>{product.description}</p>
-      
+
       <div style={{ display: 'flex', gap: '10px', marginTop: '15px' }}>
-        <Button 
-          variant="primary" 
-          size="medium"
-          onClick={() => addToCart(product)}
-        >
+        <Button variant="primary" size="medium" onClick={() => addToCart(product)}>
           Add to Cart
         </Button>
-        
-        <Button 
-          variant="outline" 
-          size="medium"
-          onClick={() => viewDetails(product)}
-        >
+
+        <Button variant="outline" size="medium" onClick={() => viewDetails(product)}>
           View Details
         </Button>
       </div>
@@ -188,6 +184,7 @@ function ProductCard({ product }) {
 ```
 
 ### 3. Loading and Disabled States
+
 ```javascript
 function ApiButton() {
   const [loading, setLoading] = useState(false);
@@ -208,19 +205,12 @@ function ApiButton() {
 
   return (
     <div>
-      <Button 
-        variant="primary"
-        onClick={fetchData}
-        disabled={loading}
-      >
+      <Button variant="primary" onClick={fetchData} disabled={loading}>
         {loading ? 'Loading...' : 'Fetch Data'}
       </Button>
-      
+
       {data && (
-        <Button 
-          variant="secondary"
-          onClick={() => setData(null)}
-        >
+        <Button variant="secondary" onClick={() => setData(null)}>
           Clear Data
         </Button>
       )}
@@ -230,39 +220,32 @@ function ApiButton() {
 ```
 
 ### 4. Mobile-Friendly Buttons
+
 ```javascript
 function MobileButtons() {
   return (
     <div style={{ padding: '10px' }}>
       {/* Full-width button for mobile */}
-      <Button 
-        variant="primary" 
+      <Button
+        variant="primary"
         size="large"
-        style={{ 
-          width: '100%', 
-          marginBottom: '10px' 
-        }}
-      >
+        style={{
+          width: '100%',
+          marginBottom: '10px'
+        }}>
         Get Started
       </Button>
-      
+
       {/* Button row for mobile */}
-      <div style={{ 
-        display: 'flex', 
-        gap: '10px' 
-      }}>
-        <Button 
-          variant="outline" 
-          size="medium"
-          style={{ flex: 1 }}
-        >
+      <div
+        style={{
+          display: 'flex',
+          gap: '10px'
+        }}>
+        <Button variant="outline" size="medium" style={{ flex: 1 }}>
           Cancel
         </Button>
-        <Button 
-          variant="primary" 
-          size="medium"
-          style={{ flex: 1 }}
-        >
+        <Button variant="primary" size="medium" style={{ flex: 1 }}>
           Continue
         </Button>
       </div>
@@ -276,20 +259,24 @@ function MobileButtons() {
 Our Button component is built to be accessible to everyone:
 
 **✅ Keyboard Navigation**
+
 - Press `Tab` to focus the button
 - Press `Space` or `Enter` to activate it
 
 **✅ Screen Reader Support**
+
 - Button text is read aloud
 - Button state (disabled/enabled) is announced
 
 **✅ Focus Indicators**
+
 - Visible outline when focused via keyboard
 - High contrast colors for better visibility
 
 ## 🎨 Customization Tips
 
 ### Adding Icons
+
 ```javascript
 function IconButton() {
   return (
@@ -302,17 +289,17 @@ function IconButton() {
 ```
 
 ### Custom Styling
+
 ```javascript
 function CustomButton() {
   return (
-    <Button 
+    <Button
       variant="primary"
       style={{
         borderRadius: '20px',
         textTransform: 'uppercase',
         fontWeight: 'bold'
-      }}
-    >
+      }}>
       Custom Style
     </Button>
   );
@@ -322,6 +309,7 @@ function CustomButton() {
 ## 🐛 Common Mistakes
 
 ### ❌ Don't Do This:
+
 ```javascript
 // Too many primary buttons
 <Button variant="primary">Save</Button>
@@ -336,6 +324,7 @@ function CustomButton() {
 ```
 
 ### ✅ Do This Instead:
+
 ```javascript
 // One primary action, others secondary
 <Button variant="primary">Save Changes</Button>

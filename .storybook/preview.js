@@ -2,19 +2,19 @@
 export const parameters = {
   // Configure the actions addon
   actions: { argTypesRegex: '^on[A-Z].*' },
-  
+
   // Configure the controls addon
   controls: {
     matchers: {
       color: /(background|color)$/i,
-      date: /Date$/,
-    },
+      date: /Date$/
+    }
   },
-  
+
   // Configure the docs addon
   docs: {
     description: {
-      component: 'UI Component Library - Simple and beginner-friendly React components',
-    },
-  },
+      component: 'UI Component Library - Simple and beginner-friendly React components'
+    }
+  }
 };

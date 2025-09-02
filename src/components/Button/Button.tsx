@@ -4,7 +4,7 @@ import { colors, typography } from '../../tokens';
 // Loading spinner component
 const LoadingSpinner: React.FC<{ size: string }> = ({ size }) => {
   const spinnerSize = size === 'small' ? '16px' : size === 'large' ? '20px' : '18px';
-  
+
   return (
     <svg
       width={spinnerSize}
@@ -13,9 +13,8 @@ const LoadingSpinner: React.FC<{ size: string }> = ({ size }) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       style={{
-        animation: 'spin 1s linear infinite',
-      }}
-    >
+        animation: 'spin 1s linear infinite'
+      }}>
       <circle
         cx="12"
         cy="12"
@@ -26,7 +25,7 @@ const LoadingSpinner: React.FC<{ size: string }> = ({ size }) => {
         strokeDasharray="31.416"
         strokeDashoffset="31.416"
         style={{
-          animation: 'spin-circle 1.5s ease-in-out infinite',
+          animation: 'spin-circle 1.5s ease-in-out infinite'
         }}
       />
       <style>{`
@@ -47,20 +46,20 @@ const LoadingSpinner: React.FC<{ size: string }> = ({ size }) => {
 // Define the props that our Button component accepts
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
-  
+
   // Styling
   variant?: 'filled' | 'outlined' | 'text' | 'link' | 'icon';
   color?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info';
   size?: 'small' | 'medium' | 'large';
-  
+
   // States
   disabled?: boolean;
   loading?: boolean;
-  
+
   // Icons
   icon?: React.ReactNode;
   iconLocation?: 'start' | 'end';
-  
+
   // Utilities
   style?: React.CSSProperties;
   className?: string;
@@ -82,7 +81,7 @@ const getButtonStyles = (variant: string, color: string, size: string, disabled:
     alignItems: 'center',
     justifyContent: 'center',
     textDecoration: 'none',
-    gap: hasIcon && hasText ? '8px' : '0',
+    gap: hasIcon && hasText ? '8px' : '0'
   };
 
   // Size-specific styles
@@ -91,20 +90,20 @@ const getButtonStyles = (variant: string, color: string, size: string, disabled:
       height: hasIcon && !hasText ? '32px' : '32px',
       padding: hasIcon && !hasText ? '0' : '0 12px',
       fontSize: typography.fontSize.sm,
-      minWidth: hasIcon && !hasText ? '32px' : 'auto',
+      minWidth: hasIcon && !hasText ? '32px' : 'auto'
     },
     medium: {
       height: hasIcon && !hasText ? '40px' : '40px',
       padding: hasIcon && !hasText ? '0' : '0 16px',
       fontSize: typography.fontSize.md,
-      minWidth: hasIcon && !hasText ? '40px' : 'auto',
+      minWidth: hasIcon && !hasText ? '40px' : 'auto'
     },
     large: {
       height: hasIcon && !hasText ? '48px' : '48px',
       padding: hasIcon && !hasText ? '0' : '0 20px',
       fontSize: typography.fontSize.lg,
-      minWidth: hasIcon && !hasText ? '48px' : 'auto',
-    },
+      minWidth: hasIcon && !hasText ? '48px' : 'auto'
+    }
   };
 
   // Color mappings for each semantic color
@@ -114,7 +113,7 @@ const getButtonStyles = (variant: string, color: string, size: string, disabled:
     success: colors.success,
     danger: colors.danger,
     warning: colors.warning,
-    info: colors.info,
+    info: colors.info
   };
 
   const currentColor = colorMap[color] || colorMap.primary;
@@ -124,37 +123,37 @@ const getButtonStyles = (variant: string, color: string, size: string, disabled:
     filled: {
       backgroundColor: currentColor.main,
       color: colors.background.white,
-      border: `1px solid ${currentColor.main}`,
+      border: `1px solid ${currentColor.main}`
     },
     outlined: {
       backgroundColor: 'transparent',
       color: currentColor.main,
-      border: `1px solid ${currentColor.main}`,
+      border: `1px solid ${currentColor.main}`
     },
     text: {
       backgroundColor: 'transparent',
       color: currentColor.main,
-      border: '1px solid transparent',
+      border: '1px solid transparent'
     },
     link: {
       backgroundColor: 'transparent',
       color: currentColor.main,
       border: '1px solid transparent',
-      textDecoration: 'none',
+      textDecoration: 'none'
     },
     icon: {
       backgroundColor: 'transparent',
       color: currentColor.main,
       border: '1px solid transparent',
-      borderRadius: '50%', // Make icon buttons circular
-    },
+      borderRadius: '50%' // Make icon buttons circular
+    }
   };
 
   // Combine all styles
   return {
     ...baseStyles,
     ...sizeStyles[size],
-    ...variantStyles[variant],
+    ...variantStyles[variant]
   };
 };
 
@@ -167,7 +166,7 @@ const getHoverStyles = (variant: string, color: string) => {
     success: colors.success,
     danger: colors.danger,
     warning: colors.warning,
-    info: colors.info,
+    info: colors.info
   };
 
   const currentColor = colorMap[color] || colorMap.primary;
@@ -175,20 +174,20 @@ const getHoverStyles = (variant: string, color: string) => {
   const hoverStyles: Record<string, React.CSSProperties> = {
     filled: {
       backgroundColor: currentColor.hover,
-      borderColor: currentColor.hover,
+      borderColor: currentColor.hover
     },
     outlined: {
-      backgroundColor: currentColor.light,
+      backgroundColor: currentColor.light
     },
     text: {
-      backgroundColor: currentColor.light,
+      backgroundColor: currentColor.light
     },
     link: {
-      textDecoration: 'underline',
+      textDecoration: 'underline'
     },
     icon: {
-      backgroundColor: currentColor.light,
-    },
+      backgroundColor: currentColor.light
+    }
   };
 
   return hoverStyles[variant];
@@ -197,21 +196,21 @@ const getHoverStyles = (variant: string, color: string) => {
 // Main Button component
 export const Button: React.FC<ButtonProps> = ({
   children,
-  variant = 'filled',     // Default to filled variant
-  color = 'primary',      // Default to primary color
-  size = 'medium',        // Default to medium size
-  disabled = false,       // Default to not disabled
-  loading = false,        // Default to not loading
-  icon,                   // Icon element
+  variant = 'filled', // Default to filled variant
+  color = 'primary', // Default to primary color
+  size = 'medium', // Default to medium size
+  disabled = false, // Default to not disabled
+  loading = false, // Default to not loading
+  icon, // Icon element
   iconLocation = 'start', // Default icon location
-  style,                  // Custom styles
-  className,              // CSS class name
-  ...props                // Spread any additional props (including type, onClick, etc.)
+  style, // Custom styles
+  className, // CSS class name
+  ...props // Spread any additional props (including type, onClick, etc.)
 }) => {
   // Check if we have icon and/or text
   const hasIcon = !!icon;
   const hasText = !!children;
-  
+
   // Get the base styles for this button configuration
   const buttonStyles = getButtonStyles(variant, color, size, disabled, loading, hasIcon, hasText);
   const hoverStyles = getHoverStyles(variant, color);
@@ -262,11 +261,11 @@ export const Button: React.FC<ButtonProps> = ({
     if (!hasIcon) {
       return children;
     }
-    
+
     if (!hasText) {
       return icon;
     }
-    
+
     if (iconLocation === 'end') {
       return (
         <>
@@ -275,7 +274,7 @@ export const Button: React.FC<ButtonProps> = ({
         </>
       );
     }
-    
+
     // Default: start position
     return (
       <>
@@ -297,8 +296,7 @@ export const Button: React.FC<ButtonProps> = ({
       // Accessibility attributes
       aria-disabled={disabled || loading}
       aria-busy={loading}
-      {...props}
-    >
+      {...props}>
       {renderContent()}
     </button>
   );

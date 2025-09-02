@@ -50,9 +50,7 @@ function App() {
   return (
     <div>
       <h1>My First MyUI App</h1>
-      <Button onClick={handleClick}>
-        Click Me!
-      </Button>
+      <Button onClick={handleClick}>Click Me!</Button>
     </div>
   );
 }
@@ -61,6 +59,7 @@ export default App;
 ```
 
 **Explanation:**
+
 1. We import the `Button` component from MyUI
 2. We create a function that shows an alert when clicked
 3. We use the `Button` component in our JSX
@@ -77,26 +76,22 @@ function MyForm() {
   return (
     <div style={{ padding: '20px' }}>
       <h2>Contact Form</h2>
-      
+
       {/* Different button variants */}
       <Button variant="primary" size="large">
         Submit
       </Button>
-      
+
       <Button variant="secondary" size="medium">
         Cancel
       </Button>
-      
+
       <Button variant="outline" size="small">
         Help
       </Button>
-      
+
       {/* Input field with label */}
-      <Input 
-        label="Your Name"
-        placeholder="Enter your full name"
-        required
-      />
+      <Input label="Your Name" placeholder="Enter your full name" required />
     </div>
   );
 }
@@ -125,21 +120,9 @@ function ContactForm() {
 
   return (
     <div>
-      <Input
-        label="Email"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        error={!!error}
-        errorMessage={error}
-        placeholder="your.email@example.com"
-      />
-      
-      <Button 
-        variant="primary" 
-        onClick={handleSubmit}
-        disabled={!email}
-      >
+      <Input label="Email" type="email" value={email} onChange={e => setEmail(e.target.value)} error={!!error} errorMessage={error} placeholder="your.email@example.com" />
+
+      <Button variant="primary" onClick={handleSubmit} disabled={!email}>
         Submit
       </Button>
     </div>
@@ -158,20 +141,16 @@ function LoadingButton() {
 
   const handleClick = async () => {
     setLoading(true);
-    
+
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 2000));
-    
+
     setLoading(false);
     alert('Done!');
   };
 
   return (
-    <Button 
-      variant="primary"
-      onClick={handleClick}
-      disabled={loading}
-    >
+    <Button variant="primary" onClick={handleClick} disabled={loading}>
       {loading ? 'Loading...' : 'Submit'}
     </Button>
   );
@@ -194,21 +173,15 @@ MyUI components work great on mobile devices:
 ```javascript
 function ResponsiveExample() {
   return (
-    <div style={{ 
-      padding: '10px',
-      maxWidth: '400px',
-      margin: '0 auto'
-    }}>
-      <Input 
-        label="Mobile-friendly input"
-        placeholder="Works on phones too!"
-      />
-      
-      <Button 
-        variant="primary" 
-        size="large"
-        style={{ width: '100%', marginTop: '10px' }}
-      >
+    <div
+      style={{
+        padding: '10px',
+        maxWidth: '400px',
+        margin: '0 auto'
+      }}>
+      <Input label="Mobile-friendly input" placeholder="Works on phones too!" />
+
+      <Button variant="primary" size="large" style={{ width: '100%', marginTop: '10px' }}>
         Full Width Button
       </Button>
     </div>
@@ -221,14 +194,17 @@ function ResponsiveExample() {
 ### Common Issues:
 
 **1. "Module not found" error**
+
 - Make sure you installed MyUI: `npm install myui`
 - Check your import statement: `import { Button } from 'myui';`
 
 **2. Components don't show up**
+
 - Make sure you're using them inside a React component
 - Check that your React version is 16.8 or higher
 
 **3. TypeScript errors**
+
 - MyUI includes TypeScript definitions
 - Make sure your props match the component interfaces
 

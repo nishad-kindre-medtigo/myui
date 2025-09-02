@@ -3,21 +3,21 @@ import { colors, typography } from '../../tokens';
 
 // Define the props that our Input component accepts
 export interface InputProps {
-  label?: string;                                                   // Optional label text
-  placeholder?: string;                                             // Placeholder text
-  value?: string;                                                   // Controlled value
-  defaultValue?: string;                                            // Default value for uncontrolled usage
-  type?: 'text' | 'email' | 'password' | 'number';                // HTML input type
-  size?: 'small' | 'medium' | 'large';                            // Input size
-  disabled?: boolean;                                               // Whether input is disabled
-  error?: boolean;                                                  // Whether input has error state
-  errorMessage?: string;                                            // Error message to display
-  helperText?: string;                                              // Helper text below input
-  required?: boolean;                                               // Whether input is required
-  style?: React.CSSProperties;                                     // Custom styles to override defaults
+  label?: string; // Optional label text
+  placeholder?: string; // Placeholder text
+  value?: string; // Controlled value
+  defaultValue?: string; // Default value for uncontrolled usage
+  type?: 'text' | 'email' | 'password' | 'number'; // HTML input type
+  size?: 'small' | 'medium' | 'large'; // Input size
+  disabled?: boolean; // Whether input is disabled
+  error?: boolean; // Whether input has error state
+  errorMessage?: string; // Error message to display
+  helperText?: string; // Helper text below input
+  required?: boolean; // Whether input is required
+  style?: React.CSSProperties; // Custom styles to override defaults
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void; // Change handler
-  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;   // Focus handler
-  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;    // Blur handler
+  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void; // Focus handler
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void; // Blur handler
 }
 
 // Helper function to get input styles based on size and state
@@ -34,7 +34,7 @@ const getInputStyles = (size: string, error: boolean, disabled: boolean) => {
     cursor: disabled ? 'not-allowed' : 'text',
     outline: 'none',
     backgroundColor: disabled ? colors.background.gray : colors.background.white,
-    color: colors.text.primary,
+    color: colors.text.primary
   };
 
   // Size-specific styles
@@ -42,23 +42,23 @@ const getInputStyles = (size: string, error: boolean, disabled: boolean) => {
     small: {
       height: '32px',
       padding: '0 12px',
-      fontSize: typography.fontSize.sm,
+      fontSize: typography.fontSize.sm
     },
     medium: {
       height: '40px',
       padding: '0 16px',
-      fontSize: typography.fontSize.md,
+      fontSize: typography.fontSize.md
     },
     large: {
       height: '48px',
       padding: '0 20px',
-      fontSize: typography.fontSize.lg,
-    },
+      fontSize: typography.fontSize.lg
+    }
   };
 
   return {
     ...baseStyles,
-    ...sizeStyles[size],
+    ...sizeStyles[size]
   };
 };
 
@@ -68,21 +68,21 @@ const getLabelStyles = (): React.CSSProperties => ({
   marginBottom: '4px',
   fontSize: typography.fontSize.sm,
   fontWeight: typography.fontWeight.medium,
-  color: colors.text.primary,
+  color: colors.text.primary
 });
 
 // Helper function to get helper/error text styles
 const getTextStyles = (isError: boolean): React.CSSProperties => ({
   marginTop: '4px',
   fontSize: typography.fontSize.sm,
-  color: isError ? colors.error.main : colors.text.secondary,
+  color: isError ? colors.error.main : colors.text.secondary
 });
 
 // Helper function to get container styles
 const getContainerStyles = (): React.CSSProperties => ({
   display: 'flex',
   flexDirection: 'column',
-  width: '100%',
+  width: '100%'
 });
 
 // Main Input component
@@ -91,18 +91,18 @@ export const Input: React.FC<InputProps> = ({
   placeholder,
   value,
   defaultValue,
-  type = 'text',           // Default to text input
-  size = 'medium',         // Default to medium size
-  disabled = false,        // Default to not disabled
-  error = false,           // Default to no error
+  type = 'text', // Default to text input
+  size = 'medium', // Default to medium size
+  disabled = false, // Default to not disabled
+  error = false, // Default to no error
   errorMessage,
   helperText,
-  required = false,        // Default to not required
-  style,                   // Custom styles
+  required = false, // Default to not required
+  style, // Custom styles
   onChange,
   onFocus,
   onBlur,
-  ...props                 // Spread any additional props
+  ...props // Spread any additional props
 }) => {
   // Generate unique ID for accessibility (label-input association)
   const inputId = React.useId();
@@ -139,19 +139,12 @@ export const Input: React.FC<InputProps> = ({
     <div style={containerStyles}>
       {/* Label (if provided) */}
       {label && (
-        <label 
-          htmlFor={inputId} 
-          style={labelStyles}
-        >
+        <label htmlFor={inputId} style={labelStyles}>
           {label}
-          {required && (
-            <span style={{ color: colors.error.main, marginLeft: '2px' }}>
-              *
-            </span>
-          )}
+          {required && <span style={{ color: colors.error.main, marginLeft: '2px' }}>*</span>}
         </label>
       )}
-      
+
       {/* Input field */}
       <input
         id={inputId}
@@ -171,16 +164,15 @@ export const Input: React.FC<InputProps> = ({
         aria-required={required}
         {...props}
       />
-      
+
       {/* Helper text or error message */}
       {displayText && (
-        <span 
+        <span
           id={`${inputId}-text`}
           style={textStyles}
           // Accessibility attributes
           role={error ? 'alert' : undefined}
-          aria-live={error ? 'polite' : undefined}
-        >
+          aria-live={error ? 'polite' : undefined}>
           {displayText}
         </span>
       )}
