@@ -12,7 +12,7 @@ MyUI is a beginner-friendly React component library that provides ready-to-use U
 
 - **[Getting Started](./getting-started.md)** - How to install and use the library
 - **[Button Component](./button.md)** - Everything about the Button component
-- **[Input Component](./input.md)** - Everything about the Input component  
+- **[Input Component](./input.md)** - Everything about the Input component
 - **[Theme System](./theme.md)** - Colors, fonts, and design tokens
 - **[How It Works](./how-it-works.md)** - Technical details and project structure
 - **[Examples](./examples.md)** - Real-world usage examples
@@ -47,11 +47,11 @@ function App() {
 
 ## 🏗️ What's Inside?
 
-| Component | Description | Status |
-|-----------|-------------|---------|
-| Button | Clickable buttons with different styles | ✅ Ready |
-| Input | Text input fields with labels and validation | ✅ Ready |
-| Theme | Color and typography system | ✅ Ready |
+| Component | Description                                  | Status   |
+| --------- | -------------------------------------------- | -------- |
+| Button    | Clickable buttons with different styles      | ✅ Ready |
+| Input     | Text input fields with labels and validation | ✅ Ready |
+| Theme     | Color and typography system                  | ✅ Ready |
 
 ## 📞 Need Help?
 

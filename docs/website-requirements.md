@@ -39,11 +39,12 @@ xl: '1280px',  /* Large desktop */
 ### 🎨 Design System
 
 #### Color Palette
+
 ```javascript
 // Primary Colors
 primary: {
   50: '#eff6ff',
-  100: '#dbeafe', 
+  100: '#dbeafe',
   500: '#3b82f6',  // Main brand color
   600: '#2563eb',
   900: '#1e3a8a'
@@ -66,6 +67,7 @@ info: '#3b82f6'
 ```
 
 #### Typography Scale
+
 ```javascript
 // Font Families
 fontFamily: {
@@ -94,9 +96,10 @@ fontSize: {
 ### 🏠 Homepage (`/`)
 
 #### Hero Section
+
 - **Headline**: "Build Beautiful React Apps Faster"
 - **Subheadline**: "A modern, accessible UI component library with TypeScript support"
-- **CTA Buttons**: 
+- **CTA Buttons**:
   - Primary: "Get Started" → `/docs/getting-started`
   - Secondary: "View Components" → `/components`
 - **Hero Demo**: Interactive component preview (animated buttons, inputs)
@@ -104,6 +107,7 @@ fontSize: {
 - **Trusted By**: Logos of companies using MyUI (when available)
 
 #### Features Section
+
 ```javascript
 const features = [
   {
@@ -136,20 +140,23 @@ const features = [
     title: 'TypeScript',
     description: 'Full TypeScript support with comprehensive type definitions'
   }
-]
+];
 ```
 
 #### Quick Start Section
+
 - Installation code snippet
 - Basic usage example
 - "Learn More" link to documentation
 
 #### Component Showcase
+
 - Grid of component previews
 - Interactive hover effects
 - Link to individual component pages
 
 #### Community Section
+
 - GitHub stats (stars, forks, contributors)
 - Recent releases
 - Community links (Discord, GitHub Discussions)
@@ -157,15 +164,16 @@ const features = [
 ### 📚 Documentation (`/docs`)
 
 #### Sidebar Navigation Structure
+
 ```
 📚 Getting Started
 ├── Introduction
-├── Installation  
+├── Installation
 ├── Quick Start
 ├── Theming
 └── Migrating
 
-🧱 Components  
+🧱 Components
 ├── Overview
 ├── Button
 ├── Input
@@ -189,6 +197,7 @@ const features = [
 ```
 
 #### Page Template Structure
+
 ```jsx
 // Component Documentation Page Layout
 <PageLayout>
@@ -198,11 +207,8 @@ const features = [
     <Description />
     <ComponentBadges /> {/* Version, Status, etc. */}
   </PageHeader>
-  
   <QuickExample />
-  
   <TableOfContents />
-  
   <ContentSections>
     <ImportSection />
     <UsageSection />
@@ -212,7 +218,6 @@ const features = [
     <AccessibilitySection />
     <CustomizationSection />
   </ContentSections>
-  
   <PageNavigation /> {/* Previous/Next */}
 </PageLayout>
 ```
@@ -220,6 +225,7 @@ const features = [
 ### 🧱 Components Showcase (`/components`)
 
 #### Component Grid Layout
+
 - **Filter System**: By category, status, complexity
 - **Search**: Real-time component search
 - **View Modes**: Grid view, list view
@@ -228,6 +234,7 @@ const features = [
 #### Individual Component Pages (`/components/[component]`)
 
 ##### Page Sections:
+
 1. **Hero Demo**: Large, interactive component showcase
 2. **Installation**: Copy-paste installation code
 3. **Basic Usage**: Simple example with code
@@ -238,6 +245,7 @@ const features = [
 8. **Customization**: Theming and styling options
 
 ##### Interactive Features:
+
 - **Live Code Editor**: Edit and preview in real-time
 - **Copy Code Button**: One-click code copying
 - **Theme Switcher**: Light/dark mode toggle
@@ -247,6 +255,7 @@ const features = [
 ### 🎮 Playground (`/playground`)
 
 #### Features:
+
 - **Component Library**: Drag-and-drop components
 - **Live Editor**: Monaco Editor with JavaScript support
 - **Live Preview**: Real-time component rendering
@@ -256,6 +265,7 @@ const features = [
 - **Share Functionality**: Share playground links
 
 #### Layout:
+
 ```
 ┌─────────────────┬─────────────────┬─────────────────┐
 │   Component     │                 │    Live         │
@@ -274,6 +284,7 @@ const features = [
 ### 🎨 Themes (`/themes`)
 
 #### Showcase Different Themes:
+
 - **Default Theme**: MyUI standard theme
 - **Dark Mode**: Dark variant
 - **Enterprise**: Professional theme
@@ -281,6 +292,7 @@ const features = [
 - **Minimal**: Clean, minimal theme
 
 #### Theme Customization Tool:
+
 - **Color Picker**: Customize primary/secondary colors
 - **Typography Settings**: Font family, sizes, weights
 - **Spacing Scale**: Customize spacing values
@@ -291,6 +303,7 @@ const features = [
 ### 📖 Examples (`/examples`)
 
 #### Real-World Templates:
+
 ```javascript
 const examples = [
   {
@@ -321,18 +334,20 @@ const examples = [
     code: 'https://github.com/myui/examples/contact-form',
     components: ['Input', 'Button', 'Form Validation']
   }
-]
+];
 ```
 
 ### 📋 Templates (`/templates`)
 
 #### Starter Templates:
+
 - **Next.js + MyUI**: Complete Next.js starter
 - **Vite + MyUI**: Vite React starter
 - **Create React App**: CRA template
 - **Remix + MyUI**: Remix starter template
 
 #### Template Features:
+
 - **Download ZIP**: Direct template download
 - **GitHub Template**: Use as GitHub template
 - **CodeSandbox**: Open in CodeSandbox
@@ -341,6 +356,7 @@ const examples = [
 ### 🏢 About (`/about`)
 
 #### Content Sections:
+
 - **Mission Statement**: Why MyUI exists
 - **Team**: Core maintainers and contributors
 - **Timeline**: Project milestones and roadmap
@@ -350,6 +366,7 @@ const examples = [
 ### 📰 Blog (`/blog`)
 
 #### Content Strategy:
+
 - **Release Notes**: New version announcements
 - **Tutorials**: How-to guides and best practices
 - **Case Studies**: Companies using MyUI
@@ -357,6 +374,7 @@ const examples = [
 - **Performance**: Optimization tips and benchmarks
 
 #### Blog Post Structure:
+
 - **Hero Image**: Featured image
 - **Metadata**: Author, date, read time, tags
 - **Table of Contents**: For long articles
@@ -470,14 +488,9 @@ myui-website/
 ### 🎯 Core Features Implementation
 
 #### 1. Live Code Editor Component
+
 ```javascript
-const LiveEditor = ({
-  code,
-  language = 'jsx',
-  editable = true,
-  showPreview = true,
-  theme = 'light'
-}) => {
+const LiveEditor = ({ code, language = 'jsx', editable = true, showPreview = true, theme = 'light' }) => {
   // Monaco Editor integration
   // Live preview rendering
   // Error handling
@@ -486,15 +499,9 @@ const LiveEditor = ({
 ```
 
 #### 2. Component Documentation Generator
+
 ```javascript
-const ComponentDoc = ({
-  componentName,
-  importPath,
-  description,
-  props,
-  examples,
-  variants
-}) => {
+const ComponentDoc = ({ componentName, importPath, description, props, examples, variants }) => {
   // Auto-generate documentation
   // Props table with types
   // Live examples
@@ -503,6 +510,7 @@ const ComponentDoc = ({
 ```
 
 #### 3. Theme System Integration
+
 ```javascript
 const ThemeProvider = ({ theme, children }) => {
   // Apply theme to MyUI components
@@ -523,7 +531,7 @@ export const buttonDoc = {
   status: 'stable',
   description: 'A customizable button component with multiple variants and sizes.',
   importPath: "import { Button } from 'myui';",
-  
+
   props: [
     {
       name: 'variant',
@@ -559,7 +567,7 @@ export const buttonDoc = {
       required: true
     }
   ],
-  
+
   examples: [
     {
       title: 'Basic Usage',
@@ -594,20 +602,16 @@ export const buttonDoc = {
 </Button>`
     }
   ],
-  
+
   accessibility: {
     keyboardNavigation: 'Tab to focus, Enter/Space to activate',
     ariaAttributes: ['aria-disabled when disabled'],
     focusManagement: 'Receives focus when tabbed to',
     screenReader: 'Button role is implicit'
   },
-  
+
   customization: {
-    cssVariables: [
-      '--button-bg-primary',
-      '--button-text-primary',
-      '--button-border-primary'
-    ],
+    cssVariables: ['--button-bg-primary', '--button-text-primary', '--button-border-primary'],
     examples: [
       {
         title: 'Custom Colors',
@@ -631,7 +635,7 @@ export const blogPosts = [
   {
     slug: 'introducing-myui-v1',
     title: 'Introducing MyUI v1.0: A New Era of React Components',
-    description: 'After months of development, we\'re excited to announce the first stable release of MyUI.',
+    description: "After months of development, we're excited to announce the first stable release of MyUI.",
     author: {
       name: 'Your Name',
       avatar: '/avatars/author.jpg',
@@ -660,6 +664,7 @@ export const blogPosts = [
 ### 🎯 Optimization Strategies
 
 #### Code Splitting
+
 ```javascript
 // Lazy load heavy components
 const Playground = lazy(() => import('./pages/Playground'));
@@ -675,12 +680,14 @@ const routes = [
 ```
 
 #### Image Optimization
+
 - **WebP Format**: Use WebP with fallbacks
 - **Responsive Images**: Multiple sizes for different viewports
 - **Lazy Loading**: Implement intersection observer
 - **Image CDN**: Consider using Cloudinary or similar
 
 #### Bundle Optimization
+
 ```javascript
 // vite.config.js
 export default defineConfig({
@@ -704,32 +711,26 @@ export default defineConfig({
 ### 📈 SEO Requirements
 
 #### Meta Tags Structure
+
 ```javascript
-const SEOHead = ({
-  title,
-  description,
-  keywords,
-  ogImage,
-  canonical,
-  noindex = false
-}) => (
+const SEOHead = ({ title, description, keywords, ogImage, canonical, noindex = false }) => (
   <Helmet>
     <title>{title} | MyUI</title>
     <meta name="description" content={description} />
     {keywords && <meta name="keywords" content={keywords.join(', ')} />}
-    
+
     {/* Open Graph */}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage || '/og-default.jpg'} />
     <meta property="og:type" content="website" />
-    
+
     {/* Twitter Card */}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage || '/og-default.jpg'} />
-    
+
     {canonical && <link rel="canonical" href={canonical} />}
     {noindex && <meta name="robots" content="noindex" />}
   </Helmet>
@@ -737,6 +738,7 @@ const SEOHead = ({
 ```
 
 #### Structured Data
+
 ```json
 {
   "@context": "https://schema.org",
@@ -766,7 +768,7 @@ const initAnalytics = () => {
 };
 
 // Custom Events
-const trackComponentView = (componentName) => {
+const trackComponentView = componentName => {
   gtag('event', 'component_view', {
     component_name: componentName,
     page_location: window.location.href
@@ -786,23 +788,27 @@ const trackCodeCopy = (componentName, codeType) => {
 ### 🎯 WCAG 2.1 AA Compliance
 
 #### Keyboard Navigation
+
 - **Tab Order**: Logical tab sequence
 - **Focus Indicators**: Visible focus states
 - **Skip Links**: Skip to main content
 - **Keyboard Shortcuts**: Document all shortcuts
 
 #### Screen Reader Support
+
 - **Semantic HTML**: Proper heading hierarchy (h1 → h6)
 - **ARIA Labels**: Descriptive labels for interactive elements
 - **Live Regions**: Announce dynamic content changes
 - **Alt Text**: Meaningful image descriptions
 
 #### Color and Contrast
+
 - **Color Contrast**: Minimum 4.5:1 for normal text, 3:1 for large text
 - **Color Independence**: Don't rely solely on color to convey information
 - **Dark Mode**: Full dark mode support with proper contrast
 
 #### Implementation Example
+
 ```jsx
 const AccessibleCodeBlock = ({ code, language }) => (
   <div className="code-block" role="region" aria-label={`${language} code example`}>
@@ -810,19 +816,13 @@ const AccessibleCodeBlock = ({ code, language }) => (
       <span className="language-label" aria-hidden="true">
         {language}
       </span>
-      <button
-        onClick={() => copyToClipboard(code)}
-        aria-label={`Copy ${language} code to clipboard`}
-        className="copy-button"
-      >
+      <button onClick={() => copyToClipboard(code)} aria-label={`Copy ${language} code to clipboard`} className="copy-button">
         <CopyIcon aria-hidden="true" />
         Copy
       </button>
     </div>
     <pre>
-      <code className={`language-${language}`}>
-        {code}
-      </code>
+      <code className={`language-${language}`}>{code}</code>
     </pre>
   </div>
 );
@@ -858,6 +858,7 @@ const AccessibleCodeBlock = ({ code, language }) => (
 ```
 
 ### 📱 Mobile Navigation
+
 - **Hamburger Menu**: Collapsible navigation for mobile
 - **Touch Targets**: Minimum 44px touch targets
 - **Swipe Gestures**: Navigate between pages
@@ -866,6 +867,7 @@ const AccessibleCodeBlock = ({ code, language }) => (
 ## 🔒 Security & Privacy
 
 ### 🛡️ Security Headers
+
 ```javascript
 // Security headers in Vite config or deployment
 const securityHeaders = {
@@ -877,6 +879,7 @@ const securityHeaders = {
 ```
 
 ### 🍪 Privacy Compliance
+
 - **Cookie Consent**: GDPR/CCPA compliant cookie banner
 - **Analytics Opt-out**: Option to disable analytics
 - **Privacy Policy**: Clear privacy policy page
@@ -887,6 +890,7 @@ const securityHeaders = {
 ### 🌐 Hosting Requirements
 
 #### Recommended Platforms
+
 1. **Vercel** (Primary choice)
    - Automatic deployments from Git
    - Edge functions for API routes
@@ -899,8 +903,9 @@ const securityHeaders = {
    - Deploy previews
 
 #### Domain Setup
+
 - **Primary Domain**: `myui.dev`
-- **Subdomains**: 
+- **Subdomains**:
   - `docs.myui.dev` (documentation)
   - `playground.myui.dev` (playground)
   - `blog.myui.dev` (blog)
@@ -920,25 +925,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
           cache: 'npm'
-      
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Run tests
         run: npm test
-      
+
       - name: Build website
         run: npm run build
         env:
           VITE_GA_ID: ${{ secrets.GA_ID }}
           VITE_API_URL: ${{ secrets.API_URL }}
-      
+
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v20
         with:
@@ -953,6 +958,7 @@ jobs:
 ### 📈 Key Performance Indicators
 
 #### User Engagement
+
 - **Page Views**: Total page views per month
 - **Session Duration**: Average time spent on site
 - **Bounce Rate**: Percentage of single-page sessions
@@ -960,12 +966,14 @@ jobs:
 - **Playground Usage**: Active playground sessions
 
 #### Developer Adoption
+
 - **npm Downloads**: Weekly/monthly download trends
 - **GitHub Stars**: Repository star growth
 - **Community Engagement**: Issues, PRs, discussions
 - **Documentation Feedback**: Helpful/unhelpful ratings
 
 #### Technical Performance
+
 - **Core Web Vitals**: LCP, FID, CLS scores
 - **Uptime**: 99.9% availability target
 - **Error Rate**: < 0.1% error rate
@@ -992,6 +1000,7 @@ trackEvent('download_template', 'templates', 'Next.js Starter');
 ## 🗓️ Development Timeline
 
 ### Phase 1: Foundation (Weeks 1-3)
+
 - [ ] Project setup with Vite + React + JavaScript
 - [ ] Basic routing with React Router
 - [ ] Design system implementation
@@ -999,6 +1008,7 @@ trackEvent('download_template', 'templates', 'Next.js Starter');
 - [ ] Basic component documentation structure
 
 ### Phase 2: Core Features (Weeks 4-6)
+
 - [ ] Component documentation pages
 - [ ] Live code editor integration
 - [ ] Props table generator
@@ -1006,6 +1016,7 @@ trackEvent('download_template', 'templates', 'Next.js Starter');
 - [ ] Search functionality
 
 ### Phase 3: Advanced Features (Weeks 7-9)
+
 - [ ] Interactive playground
 - [ ] Theme customization system
 - [ ] Template gallery
@@ -1013,6 +1024,7 @@ trackEvent('download_template', 'templates', 'Next.js Starter');
 - [ ] Mobile optimization
 
 ### Phase 4: Polish & Launch (Weeks 10-12)
+
 - [ ] Performance optimization
 - [ ] SEO implementation
 - [ ] Accessibility audit
@@ -1025,6 +1037,7 @@ trackEvent('download_template', 'templates', 'Next.js Starter');
 ### 🔮 Roadmap Features
 
 #### Short-term (3-6 months)
+
 - **Component Composer**: Visual component builder
 - **AI Code Assistant**: AI-powered code suggestions
 - **Advanced Search**: Algolia DocSearch integration
@@ -1032,6 +1045,7 @@ trackEvent('download_template', 'templates', 'Next.js Starter');
 - **Community Features**: Component ratings, comments
 
 #### Long-term (6-12 months)
+
 - **Figma Plugin**: Design token sync
 - **VS Code Extension**: IntelliSense and snippets
 - **Component Marketplace**: User-submitted components
@@ -1039,6 +1053,7 @@ trackEvent('download_template', 'templates', 'Next.js Starter');
 - **Internationalization**: Multi-language support
 
 ### 🛠️ Technical Debt Prevention
+
 - **Code Quality**: ESLint, Prettier, Husky pre-commit hooks
 - **Testing**: Unit tests with Jest, E2E tests with Playwright
 - **Documentation**: Comprehensive README and contribution guides

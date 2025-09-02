@@ -5,6 +5,7 @@ The theme system is like a color palette and font collection for your entire UI 
 ## 🎯 What is a Theme System?
 
 A theme system is a collection of design decisions that include:
+
 - **Colors** - What colors to use for buttons, text, backgrounds
 - **Typography** - Font sizes, weights, and line heights
 - **Spacing** - How much space between elements
@@ -17,81 +18,93 @@ A theme system is a collection of design decisions that include:
 Our color system is organized into logical groups that make it easy to create consistent interfaces.
 
 ### Primary Colors (Main Brand Colors)
+
 ```javascript
 import { colors } from 'myui';
 
 // Primary blue - used for main actions
-colors.primary.main     // '#2563eb' - Main blue
-colors.primary.hover    // '#1d4ed8' - Darker blue for hover
-colors.primary.light    // '#dbeafe' - Light blue for backgrounds
+colors.primary.main; // '#2563eb' - Main blue
+colors.primary.hover; // '#1d4ed8' - Darker blue for hover
+colors.primary.light; // '#dbeafe' - Light blue for backgrounds
 ```
 
 **When to use:**
+
 - Primary buttons ("Submit", "Save", "Buy Now")
 - Links and clickable elements
 - Progress indicators
 - Focus states
 
 ### Secondary Colors (Supporting Colors)
+
 ```javascript
 // Secondary gray - used for less important actions
-colors.secondary.main   // '#64748b' - Main gray
-colors.secondary.hover  // '#475569' - Darker gray for hover
-colors.secondary.light  // '#f1f5f9' - Light gray for backgrounds
+colors.secondary.main; // '#64748b' - Main gray
+colors.secondary.hover; // '#475569' - Darker gray for hover
+colors.secondary.light; // '#f1f5f9' - Light gray for backgrounds
 ```
 
 **When to use:**
+
 - Secondary buttons ("Cancel", "Back")
 - Subtle borders
 - Background sections
 - Disabled states
 
 ### Error Colors (For Problems)
+
 ```javascript
 // Error red - used for warnings and errors
-colors.error.main       // '#dc2626' - Red for errors
-colors.error.light      // '#fef2f2' - Light red for error backgrounds
+colors.error.main; // '#dc2626' - Red for errors
+colors.error.light; // '#fef2f2' - Light red for error backgrounds
 ```
 
 **When to use:**
+
 - Error messages
 - Form validation errors
 - Delete buttons
 - Warning alerts
 
 ### Text Colors (For Reading)
+
 ```javascript
 // Text colors for good readability
-colors.text.primary     // '#1f2937' - Dark gray for main text
-colors.text.secondary   // '#6b7280' - Lighter gray for secondary text
+colors.text.primary; // '#1f2937' - Dark gray for main text
+colors.text.secondary; // '#6b7280' - Lighter gray for secondary text
 ```
 
 **When to use:**
+
 - `primary` - Headlines, important text, labels
 - `secondary` - Descriptions, helper text, captions
 
 ### Border Colors (For Outlines)
+
 ```javascript
 // Border colors for different states
-colors.border.default   // '#d1d5db' - Default gray border
-colors.border.focus     // '#2563eb' - Blue border when focused
-colors.border.error     // '#dc2626' - Red border for errors
+colors.border.default; // '#d1d5db' - Default gray border
+colors.border.focus; // '#2563eb' - Blue border when focused
+colors.border.error; // '#dc2626' - Red border for errors
 ```
 
 **When to use:**
+
 - Input field borders
 - Card outlines
 - Button borders (outline variant)
 - Divider lines
 
 ### Background Colors
+
 ```javascript
 // Background colors for different surfaces
-colors.background.white // '#ffffff' - Pure white
-colors.background.gray  // '#f9fafb' - Light gray for page backgrounds
+colors.background.white; // '#ffffff' - Pure white
+colors.background.gray; // '#f9fafb' - Light gray for page backgrounds
 ```
 
 **When to use:**
+
 - `white` - Cards, modals, content areas
 - `gray` - Page backgrounds, subtle sections
 
@@ -100,72 +113,82 @@ colors.background.gray  // '#f9fafb' - Light gray for page backgrounds
 Our typography system provides consistent text styling across your app.
 
 ### Font Sizes
+
 ```javascript
 import { typography } from 'myui';
 
-typography.fontSize.sm  // '14px' - Small text
-typography.fontSize.md  // '16px' - Medium text (default)
-typography.fontSize.lg  // '18px' - Large text
+typography.fontSize.sm; // '14px' - Small text
+typography.fontSize.md; // '16px' - Medium text (default)
+typography.fontSize.lg; // '18px' - Large text
 ```
 
 **Usage guide:**
+
 - `sm` (14px) - Captions, helper text, small labels
 - `md` (16px) - Body text, form inputs, most content
 - `lg` (18px) - Subheadings, large buttons, emphasis
 
 ### Font Weights
+
 ```javascript
-typography.fontWeight.normal    // 400 - Regular text
-typography.fontWeight.medium    // 500 - Slightly bold
-typography.fontWeight.semibold  // 600 - Bold headings
+typography.fontWeight.normal; // 400 - Regular text
+typography.fontWeight.medium; // 500 - Slightly bold
+typography.fontWeight.semibold; // 600 - Bold headings
 ```
 
 **Usage guide:**
+
 - `normal` (400) - Body text, descriptions
 - `medium` (500) - Button text, form labels
 - `semibold` (600) - Headings, important text
 
 ### Line Heights
+
 ```javascript
-typography.lineHeight.normal    // 1.5 - Normal spacing
-typography.lineHeight.tight     // 1.25 - Compact spacing
+typography.lineHeight.normal; // 1.5 - Normal spacing
+typography.lineHeight.tight; // 1.25 - Compact spacing
 ```
 
 **Usage guide:**
+
 - `normal` (1.5) - Body text, readable content
 - `tight` (1.25) - Headings, compact layouts
 
 ## 🛠️ Using the Theme System
 
 ### In Your Components
+
 ```javascript
 import { colors, typography } from 'myui';
 
 function CustomComponent() {
   return (
-    <div style={{
-      backgroundColor: colors.background.white,
-      border: `1px solid ${colors.border.default}`,
-      borderRadius: '8px',
-      padding: '16px'
-    }}>
-      <h2 style={{
-        color: colors.text.primary,
-        fontSize: typography.fontSize.lg,
-        fontWeight: typography.fontWeight.semibold,
-        lineHeight: typography.lineHeight.tight,
-        margin: '0 0 8px 0'
+    <div
+      style={{
+        backgroundColor: colors.background.white,
+        border: `1px solid ${colors.border.default}`,
+        borderRadius: '8px',
+        padding: '16px'
       }}>
+      <h2
+        style={{
+          color: colors.text.primary,
+          fontSize: typography.fontSize.lg,
+          fontWeight: typography.fontWeight.semibold,
+          lineHeight: typography.lineHeight.tight,
+          margin: '0 0 8px 0'
+        }}>
         Card Title
       </h2>
-      
-      <p style={{
-        color: colors.text.secondary,
-        fontSize: typography.fontSize.md,
-        fontWeight: typography.fontWeight.normal,
-        lineHeight: typography.lineHeight.normal,
-        margin: 0
-      }}>
+
+      <p
+        style={{
+          color: colors.text.secondary,
+          fontSize: typography.fontSize.md,
+          fontWeight: typography.fontWeight.normal,
+          lineHeight: typography.lineHeight.normal,
+          margin: 0
+        }}>
         This is a description using our theme system.
       </p>
     </div>
@@ -174,6 +197,7 @@ function CustomComponent() {
 ```
 
 ### Creating Consistent Styles
+
 ```javascript
 import { colors, typography } from 'myui';
 
@@ -206,11 +230,8 @@ function ProductCard({ product }) {
     <div style={cardStyles}>
       <h3 style={headingStyles}>{product.name}</h3>
       <p style={bodyStyles}>{product.description}</p>
-      
-      <Button 
-        variant="primary"
-        style={{ marginTop: '12px' }}
-      >
+
+      <Button variant="primary" style={{ marginTop: '12px' }}>
         Add to Cart
       </Button>
     </div>
@@ -221,6 +242,7 @@ function ProductCard({ product }) {
 ## 📚 Real Examples
 
 ### 1. Alert Component Using Theme
+
 ```javascript
 import { colors, typography } from 'myui';
 
@@ -274,6 +296,7 @@ function AlertExamples() {
 ```
 
 ### 2. Navigation Menu Using Theme
+
 ```javascript
 import { colors, typography } from 'myui';
 
@@ -312,17 +335,29 @@ function Navigation() {
 
   return (
     <nav style={navStyles}>
-      <a href="/" style={logoStyles}>MyApp</a>
-      
+      <a href="/" style={logoStyles}>
+        MyApp
+      </a>
+
       <div style={{ display: 'flex', gap: '8px' }}>
-        <a href="/home" style={activeLinkStyles}>Home</a>
-        <a href="/products" style={linkStyles}>Products</a>
-        <a href="/about" style={linkStyles}>About</a>
-        <a href="/contact" style={linkStyles}>Contact</a>
+        <a href="/home" style={activeLinkStyles}>
+          Home
+        </a>
+        <a href="/products" style={linkStyles}>
+          Products
+        </a>
+        <a href="/about" style={linkStyles}>
+          About
+        </a>
+        <a href="/contact" style={linkStyles}>
+          Contact
+        </a>
       </div>
-      
+
       <div style={{ marginLeft: 'auto' }}>
-        <Button variant="outline" size="small">Sign In</Button>
+        <Button variant="outline" size="small">
+          Sign In
+        </Button>
       </div>
     </nav>
   );
@@ -330,6 +365,7 @@ function Navigation() {
 ```
 
 ### 3. Form Layout Using Theme
+
 ```javascript
 import { colors, typography } from 'myui';
 
@@ -369,55 +405,38 @@ function ThemedForm() {
     <div style={formStyles}>
       <h2 style={titleStyles}>Create Account</h2>
       <p style={subtitleStyles}>Join thousands of happy users</p>
-      
+
       <div style={fieldGroupStyles}>
-        <Input 
-          label="Full Name"
-          placeholder="Enter your full name"
-          required
-        />
+        <Input label="Full Name" placeholder="Enter your full name" required />
       </div>
-      
+
       <div style={fieldGroupStyles}>
-        <Input 
-          label="Email Address"
-          type="email"
-          placeholder="your@email.com"
-          required
-        />
+        <Input label="Email Address" type="email" placeholder="your@email.com" required />
       </div>
-      
+
       <div style={fieldGroupStyles}>
-        <Input 
-          label="Password"
-          type="password"
-          placeholder="Create a strong password"
-          required
-        />
+        <Input label="Password" type="password" placeholder="Create a strong password" required />
       </div>
-      
-      <Button 
-        variant="primary" 
-        size="large"
-        style={{ width: '100%', marginTop: '8px' }}
-      >
+
+      <Button variant="primary" size="large" style={{ width: '100%', marginTop: '8px' }}>
         Create Account
       </Button>
-      
-      <p style={{
-        ...subtitleStyles,
-        fontSize: typography.fontSize.sm,
-        marginTop: '16px',
-        marginBottom: 0
-      }}>
-        Already have an account? <a 
-          href="/signin" 
-          style={{ 
+
+      <p
+        style={{
+          ...subtitleStyles,
+          fontSize: typography.fontSize.sm,
+          marginTop: '16px',
+          marginBottom: 0
+        }}>
+        Already have an account?{' '}
+        <a
+          href="/signin"
+          style={{
             color: colors.primary.main,
             textDecoration: 'none',
             fontWeight: typography.fontWeight.medium
-          }}
-        >
+          }}>
           Sign in
         </a>
       </p>
@@ -439,7 +458,7 @@ export const myTheme = {
     ...defaultColors,
     // Override primary colors with your brand colors
     primary: {
-      main: '#7c3aed',     // Purple instead of blue
+      main: '#7c3aed', // Purple instead of blue
       hover: '#6d28d9',
       light: '#f3e8ff'
     },
@@ -464,14 +483,15 @@ export const myTheme = {
 // Use your custom theme
 function CustomButton() {
   return (
-    <button style={{
-      backgroundColor: myTheme.colors.primary.main,
-      color: 'white',
-      fontSize: myTheme.typography.fontSize.xl,
-      padding: '12px 24px',
-      border: 'none',
-      borderRadius: '6px'
-    }}>
+    <button
+      style={{
+        backgroundColor: myTheme.colors.primary.main,
+        color: 'white',
+        fontSize: myTheme.typography.fontSize.xl,
+        padding: '12px 24px',
+        border: 'none',
+        borderRadius: '6px'
+      }}>
       Custom Themed Button
     </button>
   );
@@ -491,12 +511,12 @@ export const darkTheme = {
       light: '#1e293b'
     },
     text: {
-      primary: '#f8fafc',    // Light text on dark background
+      primary: '#f8fafc', // Light text on dark background
       secondary: '#cbd5e1'
     },
     background: {
-      white: '#1e293b',      // Dark background
-      gray: '#0f172a'        // Darker background
+      white: '#1e293b', // Dark background
+      gray: '#0f172a' // Darker background
     },
     border: {
       default: '#334155',
@@ -508,13 +528,14 @@ export const darkTheme = {
 
 function ThemeProvider({ children, isDark = false }) {
   const theme = isDark ? darkTheme : defaultTheme;
-  
+
   return (
-    <div style={{ 
-      backgroundColor: theme.colors.background.gray,
-      color: theme.colors.text.primary,
-      minHeight: '100vh'
-    }}>
+    <div
+      style={{
+        backgroundColor: theme.colors.background.gray,
+        color: theme.colors.text.primary,
+        minHeight: '100vh'
+      }}>
       {children}
     </div>
   );
@@ -524,6 +545,7 @@ function ThemeProvider({ children, isDark = false }) {
 ## 💡 Best Practices
 
 ### ✅ Do This:
+
 ```javascript
 // Use theme tokens consistently
 const buttonStyle = {
@@ -541,20 +563,21 @@ const cardTheme = {
 ```
 
 ### ❌ Don't Do This:
+
 ```javascript
 // Don't use random colors
 const badStyle = {
-  backgroundColor: '#ff0000',  // Should use colors.error.main
-  color: '#333333',            // Should use colors.text.primary
-  fontSize: '15px'             // Should use typography.fontSize.md
+  backgroundColor: '#ff0000', // Should use colors.error.main
+  color: '#333333', // Should use colors.text.primary
+  fontSize: '15px' // Should use typography.fontSize.md
 };
 
 // Don't mix theme and non-theme values
 const inconsistentStyle = {
-  backgroundColor: colors.primary.main,  // Good
-  color: '#ffffff',                      // Should use a theme color
-  fontSize: typography.fontSize.md,      // Good
-  padding: '13px'                        // Should use consistent spacing
+  backgroundColor: colors.primary.main, // Good
+  color: '#ffffff', // Should use a theme color
+  fontSize: typography.fontSize.md, // Good
+  padding: '13px' // Should use consistent spacing
 };
 ```
 

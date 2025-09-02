@@ -25,7 +25,7 @@ cd c:\Users\NishadKindre\MEDTIGO-MASTER\myui
 # Build your package
 npm run build
 
-# Create a tarball (.tgz file) 
+# Create a tarball (.tgz file)
 npm pack
 ```
 
@@ -72,12 +72,12 @@ function App() {
       setError('This field is required');
       return;
     }
-    
+
     if (inputValue.length < 3) {
       setError('Must be at least 3 characters');
       return;
     }
-    
+
     setError('');
     alert(`Form submitted with: ${inputValue}`);
   };
@@ -94,7 +94,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>🧪 MyUI Package Testing</h1>
-        
+
         {/* Button Variants Testing */}
         <section style={{ marginBottom: '30px' }}>
           <h2>Button Variants</h2>
@@ -109,7 +109,7 @@ function App() {
               Primary Large
             </Button>
           </div>
-          
+
           <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '15px' }}>
             <Button variant="secondary" size="medium" onClick={handleClick}>
               Secondary
@@ -121,14 +121,9 @@ function App() {
               Disabled
             </Button>
           </div>
-          
+
           <div>
-            <Button 
-              variant="primary" 
-              size="medium" 
-              onClick={handleLoadingTest}
-              disabled={loading}
-            >
+            <Button variant="primary" size="medium" onClick={handleLoadingTest} disabled={loading}>
               {loading ? 'Loading...' : 'Test Async'}
             </Button>
           </div>
@@ -138,30 +133,18 @@ function App() {
         <section style={{ marginBottom: '30px' }}>
           <h2>Input Component</h2>
           <div style={{ maxWidth: '400px' }}>
-            <Input
-              label="Test Input Field"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Type at least 3 characters..."
-              error={!!error}
-              errorMessage={error}
-            />
-            
+            <Input label="Test Input Field" value={inputValue} onChange={e => setInputValue(e.target.value)} placeholder="Type at least 3 characters..." error={!!error} errorMessage={error} />
+
             <div style={{ marginTop: '15px' }}>
-              <Button 
-                variant="primary" 
-                onClick={handleSubmit}
-                style={{ marginRight: '10px' }}
-              >
+              <Button variant="primary" onClick={handleSubmit} style={{ marginRight: '10px' }}>
                 Validate Input
               </Button>
-              <Button 
-                variant="secondary" 
+              <Button
+                variant="secondary"
                 onClick={() => {
                   setInputValue('');
                   setError('');
-                }}
-              >
+                }}>
                 Clear
               </Button>
             </div>
@@ -172,16 +155,8 @@ function App() {
         <section>
           <h2>Responsive Test</h2>
           <div style={{ maxWidth: '300px' }}>
-            <Input 
-              label="Mobile-friendly Input"
-              placeholder="Resize window to test"
-            />
-            <Button 
-              variant="primary" 
-              size="large"
-              style={{ width: '100%', marginTop: '10px' }}
-              onClick={handleClick}
-            >
+            <Input label="Mobile-friendly Input" placeholder="Resize window to test" />
+            <Button variant="primary" size="large" style={{ width: '100%', marginTop: '10px' }} onClick={handleClick}>
               Full Width Button
             </Button>
           </div>
@@ -202,6 +177,7 @@ npm start
 ```
 
 **Test Checklist:**
+
 - [ ] All button variants render correctly
 - [ ] Click handlers work
 - [ ] Input accepts text input
@@ -257,6 +233,7 @@ npm unlink
 ```
 
 **When to Use npm link:**
+
 - Active development with frequent changes
 - Testing new features before packaging
 - Quick iteration cycles
@@ -278,24 +255,24 @@ function PlaygroundApp() {
     email: '',
     message: ''
   });
-  
+
   const [errors, setErrors] = useState({});
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!formData.name.trim()) {
       newErrors.name = 'Name is required';
     }
-    
+
     if (!formData.email.includes('@')) {
       newErrors.email = 'Valid email is required';
     }
-    
+
     if (formData.message.length < 10) {
       newErrors.message = 'Message must be at least 10 characters';
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -307,12 +284,12 @@ function PlaygroundApp() {
     }
   };
 
-  const updateField = (field) => (e) => {
+  const updateField = field => e => {
     setFormData(prev => ({
       ...prev,
       [field]: e.target.value
     }));
-    
+
     // Clear error when user starts typing
     if (errors[field]) {
       setErrors(prev => ({
@@ -325,22 +302,43 @@ function PlaygroundApp() {
   return (
     <div style={{ padding: '40px', maxWidth: '600px', margin: '0 auto' }}>
       <h1>🎪 MyUI Component Playground</h1>
-      
+
       <section style={{ marginBottom: '40px' }}>
         <h2>Button Showcase</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '10px' }}>
-          <Button variant="primary" size="small">Primary Small</Button>
-          <Button variant="primary" size="medium">Primary Medium</Button>
-          <Button variant="primary" size="large">Primary Large</Button>
-          <Button variant="secondary" size="medium">Secondary</Button>
-          <Button variant="outline" size="medium">Outline</Button>
-          <Button variant="primary" size="medium" disabled>Disabled</Button>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+            gap: '10px'
+          }}>
+          <Button variant="primary" size="small">
+            Primary Small
+          </Button>
+          <Button variant="primary" size="medium">
+            Primary Medium
+          </Button>
+          <Button variant="primary" size="large">
+            Primary Large
+          </Button>
+          <Button variant="secondary" size="medium">
+            Secondary
+          </Button>
+          <Button variant="outline" size="medium">
+            Outline
+          </Button>
+          <Button variant="primary" size="medium" disabled>
+            Disabled
+          </Button>
         </div>
       </section>
 
       <section>
         <h2>Contact Form Example</h2>
-        <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            handleSubmit();
+          }}>
           <Input
             label="Full Name"
             value={formData.name}
@@ -350,7 +348,7 @@ function PlaygroundApp() {
             errorMessage={errors.name}
             style={{ marginBottom: '20px' }}
           />
-          
+
           <Input
             label="Email Address"
             type="email"
@@ -361,7 +359,7 @@ function PlaygroundApp() {
             errorMessage={errors.email}
             style={{ marginBottom: '20px' }}
           />
-          
+
           <Input
             label="Message"
             value={formData.message}
@@ -371,24 +369,18 @@ function PlaygroundApp() {
             errorMessage={errors.message}
             style={{ marginBottom: '30px' }}
           />
-          
+
           <div>
-            <Button 
-              variant="primary" 
-              size="large" 
-              type="submit"
-              style={{ marginRight: '15px' }}
-            >
+            <Button variant="primary" size="large" type="submit" style={{ marginRight: '15px' }}>
               Submit Form
             </Button>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="large"
               onClick={() => {
                 setFormData({ name: '', email: '', message: '' });
                 setErrors({});
-              }}
-            >
+              }}>
               Reset
             </Button>
           </div>
@@ -433,11 +425,7 @@ if (!fs.existsSync('dist')) {
 }
 
 // Check essential files
-const requiredFiles = [
-  'dist/index.js',
-  'dist/index.esm.js', 
-  'dist/index.d.ts'
-];
+const requiredFiles = ['dist/index.js', 'dist/index.esm.js', 'dist/index.d.ts'];
 
 let allFilesExist = true;
 let totalSize = 0;
@@ -462,7 +450,7 @@ console.log('\n🔍 Testing exports:');
 try {
   const mainExport = require('./dist/index.js');
   const exportedComponents = Object.keys(mainExport);
-  
+
   if (exportedComponents.length === 0) {
     console.log('   ⚠️  No components exported!');
     allFilesExist = false;
@@ -616,6 +604,7 @@ const ManyButtons = () => {
 ### 4. Accessibility Testing
 
 Use browser dev tools to check:
+
 - [ ] Keyboard navigation works
 - [ ] Screen reader compatibility
 - [ ] Color contrast ratios
@@ -626,6 +615,7 @@ Use browser dev tools to check:
 ### Issue: "Module not found" after installation
 
 **Solution:**
+
 ```bash
 # Check if files are properly included
 npm pack --dry-run
@@ -637,6 +627,7 @@ npm pack --dry-run
 ### Issue: TypeScript errors in consuming project
 
 **Solution:**
+
 ```bash
 # Ensure .d.ts files are generated
 npm run build
@@ -648,6 +639,7 @@ ls dist/*.d.ts
 ### Issue: Components not rendering
 
 **Solution:**
+
 ```javascript
 // Verify exports in dist/index.js
 console.log(require('./dist/index.js'));
@@ -659,6 +651,7 @@ console.log(require('./dist/index.js'));
 ### Issue: Large bundle size
 
 **Solution:**
+
 ```bash
 # Check what's being included
 npm pack --dry-run
@@ -705,12 +698,12 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-      
+
       - run: npm ci
       - run: npm run build
       - run: npm run test:build
       - run: npm pack
-      
+
       # Test installation
       - run: |
           mkdir test-install

@@ -25,25 +25,13 @@ Ensure your `package.json` is properly configured for publishing:
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "README.md",
-    "docs"
-  ],
+  "files": ["dist", "README.md", "docs"],
   "scripts": {
     "build": "rollup -c",
     "prepublishOnly": "npm run build",
     "test:build": "node scripts/test-build.js"
   },
-  "keywords": [
-    "react",
-    "ui",
-    "components",
-    "design-system",
-    "button",
-    "input",
-    "typescript"
-  ],
+  "keywords": ["react", "ui", "components", "design-system", "button", "input", "typescript"],
   "author": "Your Name <your.email@example.com>",
   "license": "MIT",
   "homepage": "https://github.com/yourusername/myui#readme",
@@ -69,6 +57,7 @@ Ensure your `package.json` is properly configured for publishing:
 ```
 
 **Key Fields Explained:**
+
 - `name`: Your package name (must be unique on npm)
 - `version`: Semantic version (start with 1.0.0)
 - `main`: Entry point for CommonJS
@@ -81,9 +70,10 @@ Ensure your `package.json` is properly configured for publishing:
 ### Step 2: Create Essential Files
 
 #### README.md
+
 Create a comprehensive README at the root of your project:
 
-```markdown
+````markdown
 # MyUI
 
 A lightweight, accessible React UI component library built with TypeScript.
@@ -101,6 +91,7 @@ A lightweight, accessible React UI component library built with TypeScript.
 ```bash
 npm install myui
 ```
+````
 
 ## Quick Start
 
@@ -130,7 +121,8 @@ function App() {
 ## License
 
 MIT © Your Name
-```
+
+````
 
 #### LICENSE
 ```text
@@ -155,9 +147,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-```
+````
 
 #### .npmignore
+
 Control what files are excluded from the published package:
 
 ```text
@@ -225,9 +218,11 @@ npm run test:build
    - Verify your email address
 
 2. **Login via Terminal:**
+
    ```bash
    npm login
    ```
+
    Enter your username, password, and email when prompted.
 
 3. **Verify Login:**
@@ -246,6 +241,7 @@ npm view myui
 ```
 
 **If Name is Taken:**
+
 - Use a scoped package: `@yourusername/myui`
 - Choose a different name: `myui-components`, `awesome-ui-kit`
 - Add descriptive suffix: `myui-react`, `myui-lib`
@@ -253,12 +249,14 @@ npm view myui
 ### Step 6: Publish Your Package
 
 #### For Public Packages:
+
 ```bash
 # Publish your package
 npm publish
 ```
 
 #### For Scoped Packages:
+
 ```bash
 # Update package.json name first
 # "name": "@yourusername/myui"
@@ -274,15 +272,16 @@ npm publish --access public
    - Verify all information looks correct
 
 2. **Test Installation:**
+
    ```bash
    # Create a test directory
    mkdir test-install
    cd test-install
    npm init -y
-   
+
    # Install your published package
    npm install myui
-   
+
    # Test import
    node -e "console.log(require('myui'))"
    ```
@@ -328,6 +327,7 @@ git push && git push --tags
 ```
 
 Benefits:
+
 - Avoids naming conflicts
 - Free for public packages
 - Professional appearance
@@ -352,7 +352,7 @@ jobs:
         with:
           node-version: '18'
           registry-url: 'https://registry.npmjs.org'
-      
+
       - run: npm ci
       - run: npm test
       - run: npm run build
@@ -391,18 +391,21 @@ npm publish --tag beta
 ### Common Issues:
 
 **1. "Package name already exists"**
+
 ```bash
 # Solution: Use scoped package or different name
 npm publish --access public  # for scoped packages
 ```
 
 **2. "Need to login"**
+
 ```bash
 npm login
 # Verify with: npm whoami
 ```
 
 **3. "403 Forbidden"**
+
 ```bash
 # Check if you're logged in
 npm whoami
@@ -412,6 +415,7 @@ npm owner ls myui
 ```
 
 **4. "Package size too large"**
+
 ```bash
 # Check what's being included
 npm pack --dry-run
