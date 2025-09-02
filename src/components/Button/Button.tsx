@@ -1,5 +1,5 @@
 import React from 'react';
-import { colors, typography } from '../../tokens';
+import { theme, typography } from '../../tokens';
 
 // Loading spinner component
 const LoadingSpinner: React.FC<{ size: string }> = ({ size }) => {
@@ -107,45 +107,44 @@ const getButtonStyles = (variant: string, color: string, size: string, disabled:
   };
 
   // Color mappings for each semantic color
-  const colorMap: Record<string, { main: string; hover: string; light: string }> = {
-    primary: colors.primary,
-    secondary: colors.secondary,
-    success: colors.success,
-    danger: colors.danger,
-    warning: colors.warning,
-    info: colors.info
+  const themeMap: Record<string, { main: string; hover: string; light: string }> = {
+    primary: theme.primary,
+    secondary: theme.secondary,
+    success: theme.success,
+    danger: theme.danger,
+    warning: theme.warning,
+    info: theme.info
   };
 
-  const currentColor = colorMap[color] || colorMap.primary;
+  const currentTheme = themeMap[color] || themeMap.primary;
 
   // Variant-specific styles
   const variantStyles: Record<string, React.CSSProperties> = {
     filled: {
-      backgroundColor: currentColor.main,
-      color: colors.background.white,
-      border: `1px solid ${currentColor.main}`
+      backgroundColor: currentTheme.main,
+      color: theme.background.white,
+      border: `1px solid ${currentTheme.main}`
     },
     outlined: {
       backgroundColor: 'transparent',
-      color: currentColor.main,
-      border: `1px solid ${currentColor.main}`
+      color: currentTheme.main,
+      border: `1px solid ${currentTheme.main}`
     },
     text: {
       backgroundColor: 'transparent',
-      color: currentColor.main,
+      color: currentTheme.main,
       border: '1px solid transparent'
     },
     link: {
       backgroundColor: 'transparent',
-      color: currentColor.main,
+      color: currentTheme.main,
       border: '1px solid transparent',
       textDecoration: 'none'
     },
     icon: {
       backgroundColor: 'transparent',
-      color: currentColor.main,
-      border: '1px solid transparent',
-      borderRadius: '50%' // Make icon buttons circular
+      color: currentTheme.main,
+      border: '1px solid transparent'
     }
   };
 
@@ -160,33 +159,33 @@ const getButtonStyles = (variant: string, color: string, size: string, disabled:
 // Helper function to get hover styles
 const getHoverStyles = (variant: string, color: string) => {
   // Color mappings for each semantic color
-  const colorMap: Record<string, { main: string; hover: string; light: string }> = {
-    primary: colors.primary,
-    secondary: colors.secondary,
-    success: colors.success,
-    danger: colors.danger,
-    warning: colors.warning,
-    info: colors.info
+  const themeMap: Record<string, { main: string; hover: string; light: string }> = {
+    primary: theme.primary,
+    secondary: theme.secondary,
+    success: theme.success,
+    danger: theme.danger,
+    warning: theme.warning,
+    info: theme.info
   };
 
-  const currentColor = colorMap[color] || colorMap.primary;
+  const currentTheme = themeMap[color] || themeMap.primary;
 
   const hoverStyles: Record<string, React.CSSProperties> = {
     filled: {
-      backgroundColor: currentColor.hover,
-      borderColor: currentColor.hover
+      backgroundColor: currentTheme.hover,
+      borderColor: currentTheme.hover
     },
     outlined: {
-      backgroundColor: currentColor.light
+      backgroundColor: currentTheme.light
     },
     text: {
-      backgroundColor: currentColor.light
+      backgroundColor: currentTheme.light
     },
     link: {
       textDecoration: 'underline'
     },
     icon: {
-      backgroundColor: currentColor.light
+      backgroundColor: currentTheme.light
     }
   };
 
@@ -237,7 +236,7 @@ export const Button: React.FC<ButtonProps> = ({
   // Handle focus event for accessibility
   const handleFocus = (e: React.FocusEvent<HTMLButtonElement>) => {
     if (!disabled && !loading) {
-      e.currentTarget.style.boxShadow = `0 0 0 2px ${colors.primary.light}`;
+      e.currentTarget.style.boxShadow = `0 0 0 2px ${theme.primary.light}`;
     }
   };
 
@@ -253,7 +252,7 @@ export const Button: React.FC<ButtonProps> = ({
       return (
         <>
           <LoadingSpinner size={size} />
-          {children && <span style={{ opacity: 0.7 }}>{children}</span>}
+          {children && <span style={{ marginLeft: '4px' }}>{children}</span>}
         </>
       );
     }
@@ -287,12 +286,12 @@ export const Button: React.FC<ButtonProps> = ({
   return (
     <button
       style={finalStyles}
+      className={className}
       disabled={disabled || loading}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onFocus={handleFocus}
       onBlur={handleBlur}
-      className={className}
       // Accessibility attributes
       aria-disabled={disabled || loading}
       aria-busy={loading}
