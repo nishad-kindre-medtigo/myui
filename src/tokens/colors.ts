@@ -37,6 +37,20 @@ export const colors = {
     light: '#fffbeb'    // Light orange for warning backgrounds
   },
   
+  // Info colors - used for informational states and messages
+  info: {
+    main: '#0ea5e9',    // Light blue - main info color
+    hover: '#0284c7',   // Darker light blue for hover states
+    light: '#f0f9ff'    // Very light blue for info backgrounds
+  },
+  
+  // Danger colors - alias for error colors to match API requirements
+  danger: {
+    main: '#dc2626',    // Red - main danger color (same as error)
+    hover: '#b91c1c',   // Darker red for hover states (same as error)
+    light: '#fef2f2'    // Light red for danger backgrounds (same as error)
+  },
+  
   // Text colors - used for all text content
   text: {
     primary: '#1f2937',   // Dark gray for main text

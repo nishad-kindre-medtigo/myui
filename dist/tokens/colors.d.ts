@@ -24,6 +24,16 @@ export declare const colors: {
         hover: string;
         light: string;
     };
+    info: {
+        main: string;
+        hover: string;
+        light: string;
+    };
+    danger: {
+        main: string;
+        hover: string;
+        light: string;
+    };
     text: {
         primary: string;
         secondary: string;

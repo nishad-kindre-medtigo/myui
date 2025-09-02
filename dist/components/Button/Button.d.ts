@@ -1,16 +1,14 @@
 import React from 'react';
-export interface ButtonProps {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children?: React.ReactNode;
-    variant?: 'primary' | 'secondary' | 'outline' | 'error' | 'success' | 'warning' | 'text' | 'link';
+    variant?: 'filled' | 'outlined' | 'text' | 'link' | 'icon';
+    color?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info';
     size?: 'small' | 'medium' | 'large';
-    small?: boolean;
-    medium?: boolean;
-    large?: boolean;
     disabled?: boolean;
-    type?: 'button' | 'submit' | 'reset';
-    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    loading?: boolean;
     icon?: React.ReactNode;
     iconLocation?: 'start' | 'end';
     style?: React.CSSProperties;
+    className?: string;
 }
 export declare const Button: React.FC<ButtonProps>;

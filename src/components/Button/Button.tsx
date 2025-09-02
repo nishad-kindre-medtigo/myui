@@ -1,38 +1,78 @@
 import React from 'react';
 import { colors, typography } from '../../tokens';
 
-// Define the props that our Button component accepts
-export interface ButtonProps {
-  children?: React.ReactNode;                                       // Content inside the button (optional for icon-only buttons)
-  variant?: 'primary' | 'secondary' | 'outline' | 'error' | 'success' | 'warning' | 'text' | 'link'; // Button style variant
-  size?: 'small' | 'medium' | 'large';                            // Button size
-  small?: boolean;                                                  // Shorthand for small size
-  medium?: boolean;                                                 // Shorthand for medium size
-  large?: boolean;                                                  // Shorthand for large size
-  disabled?: boolean;                                               // Whether button is disabled
-  type?: 'button' | 'submit' | 'reset';                           // HTML button type
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;  // Click handler
-  icon?: React.ReactNode;                                          // Icon element
-  iconLocation?: 'start' | 'end';                                 // Icon position relative to text
-  style?: React.CSSProperties;                                     // Custom styles to override defaults
-}
-
-// Helper function to determine the actual size based on props
-const getActualSize = (size?: string, small?: boolean, medium?: boolean, large?: boolean): string => {
-  // Priority: explicit boolean props > size prop > default medium
-  if (small) return 'small';
-  if (large) return 'large';
-  if (medium) return 'medium';
-  return size || 'medium';
+// Loading spinner component
+const LoadingSpinner: React.FC<{ size: string }> = ({ size }) => {
+  const spinnerSize = size === 'small' ? '16px' : size === 'large' ? '20px' : '18px';
+  
+  return (
+    <svg
+      width={spinnerSize}
+      height={spinnerSize}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{
+        animation: 'spin 1s linear infinite',
+      }}
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="10"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeDasharray="31.416"
+        strokeDashoffset="31.416"
+        style={{
+          animation: 'spin-circle 1.5s ease-in-out infinite',
+        }}
+      />
+      <style>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        @keyframes spin-circle {
+          0% { stroke-dasharray: 0 31.416; }
+          50% { stroke-dasharray: 15.708 15.708; }
+          100% { stroke-dasharray: 31.416 0; }
+        }
+      `}</style>
+    </svg>
+  );
 };
 
-// Helper function to get styles based on variant and size
-const getButtonStyles = (variant: string, size: string, disabled: boolean, hasIcon: boolean, hasText: boolean) => {
+// Define the props that our Button component accepts
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children?: React.ReactNode;
+  
+  // Styling
+  variant?: 'filled' | 'outlined' | 'text' | 'link' | 'icon';
+  color?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info';
+  size?: 'small' | 'medium' | 'large';
+  
+  // States
+  disabled?: boolean;
+  loading?: boolean;
+  
+  // Icons
+  icon?: React.ReactNode;
+  iconLocation?: 'start' | 'end';
+  
+  // Utilities
+  style?: React.CSSProperties;
+  className?: string;
+}
+
+// Helper function to get styles based on variant, color, and size
+const getButtonStyles = (variant: string, color: string, size: string, disabled: boolean, loading: boolean, hasIcon: boolean, hasText: boolean) => {
   // Base styles that apply to all buttons
   const baseStyles: React.CSSProperties = {
     border: 'none',
     borderRadius: '6px',
-    cursor: disabled ? 'not-allowed' : 'pointer',
+    cursor: disabled || loading ? 'not-allowed' : 'pointer',
     fontFamily: 'inherit',
     fontWeight: typography.fontWeight.medium,
     transition: 'all 0.2s ease-in-out',
@@ -67,48 +107,46 @@ const getButtonStyles = (variant: string, size: string, disabled: boolean, hasIc
     },
   };
 
+  // Color mappings for each semantic color
+  const colorMap: Record<string, { main: string; hover: string; light: string }> = {
+    primary: colors.primary,
+    secondary: colors.secondary,
+    success: colors.success,
+    danger: colors.danger,
+    warning: colors.warning,
+    info: colors.info,
+  };
+
+  const currentColor = colorMap[color] || colorMap.primary;
+
   // Variant-specific styles
   const variantStyles: Record<string, React.CSSProperties> = {
-    primary: {
-      backgroundColor: colors.primary.main,
+    filled: {
+      backgroundColor: currentColor.main,
       color: colors.background.white,
-      border: `1px solid ${colors.primary.main}`,
+      border: `1px solid ${currentColor.main}`,
     },
-    secondary: {
-      backgroundColor: colors.secondary.light,
-      color: colors.text.primary,
-      border: `1px solid ${colors.border.default}`,
-    },
-    outline: {
+    outlined: {
       backgroundColor: 'transparent',
-      color: colors.primary.main,
-      border: `1px solid ${colors.primary.main}`,
-    },
-    error: {
-      backgroundColor: colors.error.main,
-      color: colors.background.white,
-      border: `1px solid ${colors.error.main}`,
-    },
-    success: {
-      backgroundColor: colors.success.main,
-      color: colors.background.white,
-      border: `1px solid ${colors.success.main}`,
-    },
-    warning: {
-      backgroundColor: colors.warning.main,
-      color: colors.background.white,
-      border: `1px solid ${colors.warning.main}`,
+      color: currentColor.main,
+      border: `1px solid ${currentColor.main}`,
     },
     text: {
       backgroundColor: 'transparent',
-      color: colors.text.primary,
+      color: currentColor.main,
       border: '1px solid transparent',
     },
     link: {
       backgroundColor: 'transparent',
-      color: colors.primary.main,
+      color: currentColor.main,
       border: '1px solid transparent',
       textDecoration: 'none',
+    },
+    icon: {
+      backgroundColor: 'transparent',
+      color: currentColor.main,
+      border: '1px solid transparent',
+      borderRadius: '50%', // Make icon buttons circular
     },
   };
 
@@ -121,36 +159,35 @@ const getButtonStyles = (variant: string, size: string, disabled: boolean, hasIc
 };
 
 // Helper function to get hover styles
-const getHoverStyles = (variant: string) => {
+const getHoverStyles = (variant: string, color: string) => {
+  // Color mappings for each semantic color
+  const colorMap: Record<string, { main: string; hover: string; light: string }> = {
+    primary: colors.primary,
+    secondary: colors.secondary,
+    success: colors.success,
+    danger: colors.danger,
+    warning: colors.warning,
+    info: colors.info,
+  };
+
+  const currentColor = colorMap[color] || colorMap.primary;
+
   const hoverStyles: Record<string, React.CSSProperties> = {
-    primary: {
-      backgroundColor: colors.primary.hover,
-      borderColor: colors.primary.hover,
+    filled: {
+      backgroundColor: currentColor.hover,
+      borderColor: currentColor.hover,
     },
-    secondary: {
-      backgroundColor: colors.secondary.light,
-      borderColor: colors.border.focus,
-    },
-    outline: {
-      backgroundColor: colors.primary.light,
-    },
-    error: {
-      backgroundColor: colors.error.hover,
-      borderColor: colors.error.hover,
-    },
-    success: {
-      backgroundColor: colors.success.hover,
-      borderColor: colors.success.hover,
-    },
-    warning: {
-      backgroundColor: colors.warning.hover,
-      borderColor: colors.warning.hover,
+    outlined: {
+      backgroundColor: currentColor.light,
     },
     text: {
-      backgroundColor: colors.secondary.light,
+      backgroundColor: currentColor.light,
     },
     link: {
       textDecoration: 'underline',
+    },
+    icon: {
+      backgroundColor: currentColor.light,
     },
   };
 
@@ -160,36 +197,31 @@ const getHoverStyles = (variant: string) => {
 // Main Button component
 export const Button: React.FC<ButtonProps> = ({
   children,
-  variant = 'primary',     // Default to primary variant
-  size,                    // Size prop (can be overridden by boolean props)
-  small,                   // Boolean prop for small size
-  medium,                  // Boolean prop for medium size
-  large,                   // Boolean prop for large size
-  disabled = false,        // Default to not disabled
-  type = 'button',         // Default to button type
-  onClick,
-  icon,                    // Icon element
-  iconLocation = 'start',  // Default icon location
-  style,                   // Custom styles
-  ...props                 // Spread any additional props
+  variant = 'filled',     // Default to filled variant
+  color = 'primary',      // Default to primary color
+  size = 'medium',        // Default to medium size
+  disabled = false,       // Default to not disabled
+  loading = false,        // Default to not loading
+  icon,                   // Icon element
+  iconLocation = 'start', // Default icon location
+  style,                  // Custom styles
+  className,              // CSS class name
+  ...props                // Spread any additional props (including type, onClick, etc.)
 }) => {
-  // Determine the actual size to use
-  const actualSize = getActualSize(size, small, medium, large);
-  
   // Check if we have icon and/or text
   const hasIcon = !!icon;
   const hasText = !!children;
   
   // Get the base styles for this button configuration
-  const buttonStyles = getButtonStyles(variant, actualSize, disabled, hasIcon, hasText);
-  const hoverStyles = getHoverStyles(variant);
+  const buttonStyles = getButtonStyles(variant, color, size, disabled, loading, hasIcon, hasText);
+  const hoverStyles = getHoverStyles(variant, color);
 
   // Merge custom styles with default styles (custom styles override defaults)
   const finalStyles = style ? { ...buttonStyles, ...style } : buttonStyles;
 
   // Handle mouse enter (hover) event
   const handleMouseEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!disabled) {
+    if (!disabled && !loading) {
       const combinedHoverStyles = style ? { ...hoverStyles, ...style } : hoverStyles;
       Object.assign(e.currentTarget.style, combinedHoverStyles);
     }
@@ -197,7 +229,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   // Handle mouse leave event
   const handleMouseLeave = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!disabled) {
+    if (!disabled && !loading) {
       // Reset to original styles
       Object.assign(e.currentTarget.style, finalStyles);
     }
@@ -205,7 +237,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   // Handle focus event for accessibility
   const handleFocus = (e: React.FocusEvent<HTMLButtonElement>) => {
-    if (!disabled) {
+    if (!disabled && !loading) {
       e.currentTarget.style.boxShadow = `0 0 0 2px ${colors.primary.light}`;
     }
   };
@@ -215,8 +247,18 @@ export const Button: React.FC<ButtonProps> = ({
     e.currentTarget.style.boxShadow = 'none';
   };
 
-  // Render icon and text based on iconLocation
+  // Render icon and text based on iconLocation and loading state
   const renderContent = () => {
+    // Show loading spinner when loading
+    if (loading) {
+      return (
+        <>
+          <LoadingSpinner size={size} />
+          {children && <span style={{ opacity: 0.7 }}>{children}</span>}
+        </>
+      );
+    }
+
     if (!hasIcon) {
       return children;
     }
@@ -245,16 +287,16 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
-      type={type}
       style={finalStyles}
-      disabled={disabled}
-      onClick={onClick}
+      disabled={disabled || loading}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onFocus={handleFocus}
       onBlur={handleBlur}
+      className={className}
       // Accessibility attributes
-      aria-disabled={disabled}
+      aria-disabled={disabled || loading}
+      aria-busy={loading}
       {...props}
     >
       {renderContent()}
