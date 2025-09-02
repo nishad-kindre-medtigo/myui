@@ -1,1 +1,0 @@
-const o={actions:{argTypesRegex:"^on[A-Z].*"},controls:{matchers:{color:/(background|color)$/i,date:/Date$/}},docs:{description:{component:"UI Component Library - Simple and beginner-friendly React components"}}};export{o as parameters};
