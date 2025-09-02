@@ -64,6 +64,15 @@ const meta: Meta<typeof Input> = {
     onBlur: {
       action: 'blurred',
       description: 'Function called when input loses focus'
+    },
+    variant: {
+      control: { type: 'select' },
+      options: ['outlined', 'filled'],
+      description: 'Input variant style'
+    },
+    className: {
+      control: { type: 'text' },
+      description: 'Custom class name for input element'
     }
   },
   // Default values for props
@@ -83,7 +92,39 @@ type Story = StoryObj<typeof meta>;
 // Default story
 export const Default: Story = {
   args: {
-    placeholder: 'Enter your name'
+    placeholder: 'Enter your name',
+    variant: 'outlined'
+  }
+};
+// Outlined variant story
+export const Outlined: Story = {
+  args: {
+    label: 'Outlined Input',
+    placeholder: 'Outlined input',
+    variant: 'outlined'
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Outlined variant (default) with border.'
+      }
+    }
+  }
+};
+
+// Filled variant story
+export const Filled: Story = {
+  args: {
+    label: 'Filled Input',
+    placeholder: 'Filled input',
+    variant: 'filled'
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Filled variant with background.'
+      }
+    }
   }
 };
 

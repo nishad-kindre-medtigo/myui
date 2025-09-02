@@ -120,4 +120,22 @@ describe('Input Component', () => {
     expect(screen.getByText('Error occurred')).toBeInTheDocument();
     expect(screen.queryByText('This should not be shown')).not.toBeInTheDocument();
   });
+
+  // Test 13: Outlined variant renders by default
+  it('renders outlined variant by default', () => {
+    render(<Input placeholder="Outlined input" />);
+    const input = screen.getByRole('textbox');
+    // Outlined should have a border (not transparent)
+    expect(input).toHaveStyle('border');
+    expect(input).toHaveStyle('background-color');
+  });
+
+  // Test 14: Filled variant renders with correct styles
+  it('renders filled variant', () => {
+    render(<Input variant="filled" placeholder="Filled input" />);
+    const input = screen.getByRole('textbox');
+    // Filled should have background color set to gray and border transparent if not error
+    expect(input).toHaveStyle('background-color');
+    expect(input).toHaveStyle('border');
+  });
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { colors, typography } from '../../tokens';
+import { theme, typography } from '../../tokens';
 
 // Define the props that our Input component accepts
 export interface InputProps {
@@ -9,23 +9,24 @@ export interface InputProps {
   defaultValue?: string; // Default value for uncontrolled usage
   type?: 'text' | 'email' | 'password' | 'number'; // HTML input type
   size?: 'small' | 'medium' | 'large'; // Input size
+  variant?: 'outlined' | 'filled'; // Input variant
   disabled?: boolean; // Whether input is disabled
   error?: boolean; // Whether input has error state
   errorMessage?: string; // Error message to display
   helperText?: string; // Helper text below input
   required?: boolean; // Whether input is required
   style?: React.CSSProperties; // Custom styles to override defaults
+  className?: string; // Custom class name for input element
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void; // Change handler
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void; // Focus handler
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void; // Blur handler
 }
 
-// Helper function to get input styles based on size and state
-const getInputStyles = (size: string, error: boolean, disabled: boolean) => {
+// Helper function to get input styles based on size, state, and variant
+const getInputStyles = (size: string, error: boolean, disabled: boolean, variant: 'outlined' | 'filled') => {
   // Base styles that apply to all inputs
   const baseStyles: React.CSSProperties = {
     width: '100%',
-    border: `1px solid ${error ? colors.border.error : colors.border.default}`,
     borderRadius: '6px',
     fontFamily: 'inherit',
     fontWeight: typography.fontWeight.normal,
@@ -33,8 +34,19 @@ const getInputStyles = (size: string, error: boolean, disabled: boolean) => {
     opacity: disabled ? 0.5 : 1,
     cursor: disabled ? 'not-allowed' : 'text',
     outline: 'none',
-    backgroundColor: disabled ? colors.background.gray : colors.background.white,
-    color: colors.text.primary
+    color: theme.text.primary
+  };
+
+  // Variant-specific styles
+  const variantStyles: Record<'outlined' | 'filled', React.CSSProperties> = {
+    outlined: {
+      border: `1px solid ${error ? theme.border.error : theme.border.default}`,
+      backgroundColor: disabled ? theme.background.gray : theme.background.white
+    },
+    filled: {
+      border: `1px solid ${error ? theme.border.error : 'transparent'}`,
+      backgroundColor: disabled ? theme.background.gray : theme.background.gray
+    }
   };
 
   // Size-specific styles
@@ -58,6 +70,7 @@ const getInputStyles = (size: string, error: boolean, disabled: boolean) => {
 
   return {
     ...baseStyles,
+    ...variantStyles[variant],
     ...sizeStyles[size]
   };
 };
@@ -68,14 +81,14 @@ const getLabelStyles = (): React.CSSProperties => ({
   marginBottom: '4px',
   fontSize: typography.fontSize.sm,
   fontWeight: typography.fontWeight.medium,
-  color: colors.text.primary
+  color: theme.text.primary
 });
 
 // Helper function to get helper/error text styles
 const getTextStyles = (isError: boolean): React.CSSProperties => ({
   marginTop: '4px',
   fontSize: typography.fontSize.sm,
-  color: isError ? colors.error.main : colors.text.secondary
+  color: isError ? theme.danger.main : theme.text.secondary
 });
 
 // Helper function to get container styles
@@ -93,12 +106,14 @@ export const Input: React.FC<InputProps> = ({
   defaultValue,
   type = 'text', // Default to text input
   size = 'medium', // Default to medium size
+  variant = 'outlined', // Default to outlined variant
   disabled = false, // Default to not disabled
   error = false, // Default to no error
   errorMessage,
   helperText,
   required = false, // Default to not required
   style, // Custom styles
+  className, // Custom class name
   onChange,
   onFocus,
   onBlur,
@@ -110,7 +125,7 @@ export const Input: React.FC<InputProps> = ({
   // Get styles for this input configuration
   const containerStyles = getContainerStyles();
   const labelStyles = getLabelStyles();
-  const inputStyles = getInputStyles(size, error, disabled);
+  const inputStyles = getInputStyles(size, error, disabled, variant);
   const textStyles = getTextStyles(error);
 
   // Merge custom styles with default styles (custom styles override defaults)
@@ -119,15 +134,15 @@ export const Input: React.FC<InputProps> = ({
   // Handle focus event
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     if (!disabled) {
-      e.currentTarget.style.borderColor = error ? colors.border.error : colors.border.focus;
-      e.currentTarget.style.boxShadow = `0 0 0 2px ${error ? colors.error.light : colors.primary.light}`;
+      e.currentTarget.style.borderColor = error ? theme.border.error : theme.border.focus;
+      e.currentTarget.style.boxShadow = `0 0 0 2px ${error ? theme.danger.light : theme.primary.light}`;
     }
     onFocus?.(e);
   };
 
   // Handle blur event
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    e.currentTarget.style.borderColor = error ? colors.border.error : colors.border.default;
+    e.currentTarget.style.borderColor = error ? theme.border.error : theme.border.default;
     e.currentTarget.style.boxShadow = 'none';
     onBlur?.(e);
   };
@@ -141,7 +156,7 @@ export const Input: React.FC<InputProps> = ({
       {label && (
         <label htmlFor={inputId} style={labelStyles}>
           {label}
-          {required && <span style={{ color: colors.error.main, marginLeft: '2px' }}>*</span>}
+          {required && <span style={{ color: theme.danger.main, marginLeft: '2px' }}>*</span>}
         </label>
       )}
 
@@ -155,6 +170,7 @@ export const Input: React.FC<InputProps> = ({
         disabled={disabled}
         required={required}
         style={finalInputStyles}
+        className={className}
         onChange={onChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
