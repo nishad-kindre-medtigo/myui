@@ -25,6 +25,10 @@ const meta: Meta<typeof Input> = {
       options: ['small', 'medium', 'large'],
       description: 'Size of the input field'
     },
+    fullWidth: {
+      control: { type: 'boolean' },
+      description: 'Whether the input is full width'
+    },
     disabled: {
       control: { type: 'boolean' },
       description: 'Whether the input is disabled'
@@ -69,6 +73,10 @@ const meta: Meta<typeof Input> = {
       control: { type: 'select' },
       options: ['outlined', 'filled'],
       description: 'Input variant style'
+    },
+    radius: {
+      control: { type: 'text' },
+      description: 'Border radius of the input element'
     },
     className: {
       control: { type: 'text' },
@@ -207,7 +215,7 @@ export const Large: Story = {
 // Different input types story
 export const InputTypes: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '300px' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', gap: '24px', width: '400px' }}>
       <Input label="Text Input" type="text" placeholder="Enter text" />
       <Input label="Email Input" type="email" placeholder="Enter email" />
       <Input label="Password Input" type="password" placeholder="Enter password" />
@@ -226,10 +234,13 @@ export const InputTypes: Story = {
 // All sizes comparison story
 export const AllSizes: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '300px' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', gap: '16px', width: '400px' }}>
       <Input label="Small" size="small" placeholder="Small input" />
       <Input label="Medium" size="medium" placeholder="Medium input" />
       <Input label="Large" size="large" placeholder="Large input" />
+      <Input size="medium" radius='24px' placeholder="Rounded input" />
+      <Input size="medium" radius='0px' placeholder="Block input" />
+      <Input size="medium" fullWidth placeholder="Full width input" />
     </div>
   ),
   parameters: {
@@ -244,7 +255,7 @@ export const AllSizes: Story = {
 // Form example story
 export const FormExample: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '300px' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', gap: '16px', width: '400px' }}>
       <Input label="First Name" placeholder="Enter first name" required />
       <Input label="Email" type="email" placeholder="Enter email address" required helperText="We'll never share your email" />
       <Input label="Phone" type="text" placeholder="Enter phone number" helperText="Optional field" />

@@ -38,6 +38,10 @@ const meta: Meta<typeof Button> = {
       options: ['small', 'medium', 'large'],
       description: 'Size of the button'
     },
+    fullWidth: {
+      control: { type: 'boolean' },
+      description: 'Whether the button takes the full width of its container'
+    },
     disabled: {
       control: { type: 'boolean' },
       description: 'Whether the button is disabled'
@@ -46,10 +50,18 @@ const meta: Meta<typeof Button> = {
       control: { type: 'boolean' },
       description: 'Whether the button is in loading state'
     },
-    iconLocation: {
+    iconAt: {
       control: { type: 'select' },
       options: ['start', 'end'],
       description: 'Position of the icon relative to text'
+    },
+    radius: {
+      control: { type: 'text' },
+      description: 'Border radius of the button'
+    },
+    round: {
+      control: { type: 'boolean' },
+      description: 'Whether the button has a circular shape'
     },
     children: {
       control: { type: 'text' },
@@ -68,7 +80,7 @@ const meta: Meta<typeof Button> = {
     size: 'medium',
     disabled: false,
     loading: false,
-    iconLocation: 'start'
+    iconAt: 'start'
   }
 };
 
@@ -165,7 +177,7 @@ export const Disabled: Story = {
 export const WithIconStart: Story = {
   args: {
     icon: <StarIcon />,
-    iconLocation: 'start',
+    iconAt: 'start',
     children: 'Star Button'
   }
 };
@@ -174,7 +186,7 @@ export const WithIconStart: Story = {
 export const WithIconEnd: Story = {
   args: {
     icon: <StarIcon />,
-    iconLocation: 'end',
+    iconAt: 'end',
     children: 'Star Button'
   }
 };
@@ -182,7 +194,7 @@ export const WithIconEnd: Story = {
 // Story showing all variants together
 export const AllVariants: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center' }}>
+    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
       <Button variant="filled" color="primary">
         Filled
       </Button>
@@ -210,7 +222,7 @@ export const AllVariants: Story = {
 // Story showing all colors together
 export const AllColors: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center' }}>
+    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
       <Button variant="filled" color="primary">
         Primary
       </Button>
@@ -243,10 +255,12 @@ export const AllColors: Story = {
 // Story showing all sizes together
 export const AllSizes: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
       <Button size="small">Small</Button>
       <Button size="medium">Medium</Button>
       <Button size="large">Large</Button>
+      <Button size="large" radius='24px'>Rounded</Button>
+      <Button size="small" fullWidth>Full Width</Button>
     </div>
   ),
   parameters: {
@@ -261,7 +275,7 @@ export const AllSizes: Story = {
 // Story showing states
 export const States: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center' }}>
+    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
       <Button variant="filled" color="primary">
         Normal
       </Button>
@@ -285,7 +299,7 @@ export const States: Story = {
 // Story showing outlined variant with all colors
 export const OutlinedColors: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center' }}>
+    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
       <Button variant="outlined" color="primary">
         Primary
       </Button>
@@ -318,10 +332,11 @@ export const OutlinedColors: Story = {
 // Story showing icon buttons in different sizes
 export const IconSizes: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
       <Button variant="icon" color="primary" size="small" icon={<StarIcon />} />
       <Button variant="icon" color="primary" size="medium" icon={<StarIcon />} />
       <Button variant="icon" color="primary" size="large" icon={<StarIcon />} />
+      <Button variant="icon" color="primary" size="large" icon={<StarIcon />} round />
     </div>
   ),
   parameters: {
