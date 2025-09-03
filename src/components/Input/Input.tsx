@@ -1,137 +1,76 @@
 import React from 'react';
-import { theme, typography } from '../../tokens';
+import { theme } from '../../tokens';
+import { getContainerStyles, getInputStyles, getLabelStyles, getTextStyles } from './helpers';
 
-// Define the props that our Input component accepts
+/**
+ * Input Component - MyUI
+ *
+ * A flexible, accessible, and themeable input field for React apps.
+ * Supports outlined/filled variants, error states, helper text, custom radius, and more.
+ *
+ * Usage:
+ * <Input label="Email" type="email" error errorMessage="Invalid email" />
+ */
+
+// Props for the Input component
 export interface InputProps {
-  label?: string; // Optional label text
+  label?: string; // Label text
   placeholder?: string; // Placeholder text
   value?: string; // Controlled value
-  defaultValue?: string; // Default value for uncontrolled usage
-  type?: 'text' | 'email' | 'password' | 'number'; // HTML input type
+  defaultValue?: string; // Default value (uncontrolled)
+  type?: 'text' | 'email' | 'password' | 'number'; // Input type
   size?: 'small' | 'medium' | 'large'; // Input size
-  variant?: 'outlined' | 'filled'; // Input variant
-  disabled?: boolean; // Whether input is disabled
-  error?: boolean; // Whether input has error state
-  errorMessage?: string; // Error message to display
-  helperText?: string; // Helper text below input
-  required?: boolean; // Whether input is required
-  style?: React.CSSProperties; // Custom styles to override defaults
-  className?: string; // Custom class name for input element
+  fullWidth?: boolean; // Full width
+  variant?: 'outlined' | 'filled'; // Visual variant
+  disabled?: boolean; // Disabled state
+  error?: boolean; // Error state
+  errorMessage?: string; // Error message
+  helperText?: string; // Helper text
+  required?: boolean; // Required field
+  style?: React.CSSProperties; // Custom styles
+  className?: string; // Custom class name
+  radius?: string; // Custom border radius
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void; // Change handler
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void; // Focus handler
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void; // Blur handler
 }
 
-// Helper function to get input styles based on size, state, and variant
-const getInputStyles = (size: string, error: boolean, disabled: boolean, variant: 'outlined' | 'filled') => {
-  // Base styles that apply to all inputs
-  const baseStyles: React.CSSProperties = {
-    width: '100%',
-    borderRadius: '6px',
-    fontFamily: 'inherit',
-    fontWeight: typography.fontWeight.normal,
-    transition: 'all 0.2s ease-in-out',
-    opacity: disabled ? 0.5 : 1,
-    cursor: disabled ? 'not-allowed' : 'text',
-    outline: 'none',
-    color: theme.text.primary
-  };
-
-  // Variant-specific styles
-  const variantStyles: Record<'outlined' | 'filled', React.CSSProperties> = {
-    outlined: {
-      border: `1px solid ${error ? theme.border.error : theme.border.default}`,
-      backgroundColor: disabled ? theme.background.gray : theme.background.white
-    },
-    filled: {
-      border: `1px solid ${error ? theme.border.error : 'transparent'}`,
-      backgroundColor: disabled ? theme.background.gray : theme.background.gray
-    }
-  };
-
-  // Size-specific styles
-  const sizeStyles: Record<string, React.CSSProperties> = {
-    small: {
-      height: '32px',
-      padding: '0 12px',
-      fontSize: typography.fontSize.sm
-    },
-    medium: {
-      height: '40px',
-      padding: '0 16px',
-      fontSize: typography.fontSize.md
-    },
-    large: {
-      height: '48px',
-      padding: '0 20px',
-      fontSize: typography.fontSize.lg
-    }
-  };
-
-  return {
-    ...baseStyles,
-    ...variantStyles[variant],
-    ...sizeStyles[size]
-  };
-};
-
-// Helper function to get label styles
-const getLabelStyles = (): React.CSSProperties => ({
-  display: 'block',
-  marginBottom: '4px',
-  fontSize: typography.fontSize.sm,
-  fontWeight: typography.fontWeight.medium,
-  color: theme.text.primary
-});
-
-// Helper function to get helper/error text styles
-const getTextStyles = (isError: boolean): React.CSSProperties => ({
-  marginTop: '4px',
-  fontSize: typography.fontSize.sm,
-  color: isError ? theme.danger.main : theme.text.secondary
-});
-
-// Helper function to get container styles
-const getContainerStyles = (): React.CSSProperties => ({
-  display: 'flex',
-  flexDirection: 'column',
-  width: '100%'
-});
-
-// Main Input component
+/** Main Input component */
 export const Input: React.FC<InputProps> = ({
   label,
   placeholder,
   value,
   defaultValue,
-  type = 'text', // Default to text input
-  size = 'medium', // Default to medium size
-  variant = 'outlined', // Default to outlined variant
-  disabled = false, // Default to not disabled
-  error = false, // Default to no error
+  type = 'text', // Default type
+  size = 'medium', // Default size
+  fullWidth = false,
+  variant = 'outlined', // Default variant
+  disabled = false,
+  error = false,
   errorMessage,
   helperText,
-  required = false, // Default to not required
-  style, // Custom styles
-  className, // Custom class name
+  required = false,
+  style,
+  className,
+  radius,
   onChange,
   onFocus,
   onBlur,
-  ...props // Spread any additional props
+  ...props
 }) => {
-  // Generate unique ID for accessibility (label-input association)
+  // Unique ID for accessibility (label-input association)
   const inputId = React.useId();
 
-  // Get styles for this input configuration
+  // Get styles for input, label, container, and text
   const containerStyles = getContainerStyles();
   const labelStyles = getLabelStyles();
-  const inputStyles = getInputStyles(size, error, disabled, variant);
+  const inputStyles = getInputStyles(size, fullWidth, error, disabled, variant, radius);
   const textStyles = getTextStyles(error);
 
-  // Merge custom styles with default styles (custom styles override defaults)
+  // Merge custom styles with defaults
   const finalInputStyles = style ? { ...inputStyles, ...style } : inputStyles;
 
-  // Handle focus event
+  // Focus handler: show focus ring and border color
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     if (!disabled) {
       e.currentTarget.style.borderColor = error ? theme.border.error : theme.border.focus;
@@ -140,14 +79,14 @@ export const Input: React.FC<InputProps> = ({
     onFocus?.(e);
   };
 
-  // Handle blur event
+  // Blur handler: reset border and remove focus ring
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     e.currentTarget.style.borderColor = error ? theme.border.error : theme.border.default;
     e.currentTarget.style.boxShadow = 'none';
     onBlur?.(e);
   };
 
-  // Determine what text to show below the input
+  // Text below input: error message or helper text
   const displayText = error && errorMessage ? errorMessage : helperText;
 
   return (
@@ -156,6 +95,7 @@ export const Input: React.FC<InputProps> = ({
       {label && (
         <label htmlFor={inputId} style={labelStyles}>
           {label}
+          {/* Show required asterisk if needed */}
           {required && <span style={{ color: theme.danger.main, marginLeft: '2px' }}>*</span>}
         </label>
       )}
@@ -174,10 +114,9 @@ export const Input: React.FC<InputProps> = ({
         onChange={onChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        // Accessibility attributes
-        aria-invalid={error}
-        aria-describedby={displayText ? `${inputId}-text` : undefined}
-        aria-required={required}
+        aria-invalid={error} // Accessibility: error state
+        aria-describedby={displayText ? `${inputId}-text` : undefined} // Accessibility: helper/error text
+        aria-required={required} // Accessibility: required
         {...props}
       />
 
@@ -186,9 +125,9 @@ export const Input: React.FC<InputProps> = ({
         <span
           id={`${inputId}-text`}
           style={textStyles}
-          // Accessibility attributes
-          role={error ? 'alert' : undefined}
-          aria-live={error ? 'polite' : undefined}>
+          role={error ? 'alert' : undefined} // Accessibility: error message
+          aria-live={error ? 'polite' : undefined} // Accessibility: announce error
+        >
           {displayText}
         </span>
       )}

@@ -1,223 +1,93 @@
 import React from 'react';
-import { theme, typography } from '../../tokens';
+import { theme } from '../../tokens';
+import { RingSpinner } from '../Spinners';
+import { getButtonStyles, getHoverStyles } from './helpers';
 
-// Loading spinner component
-const LoadingSpinner: React.FC<{ size: string }> = ({ size }) => {
-  const spinnerSize = size === 'small' ? '16px' : size === 'large' ? '20px' : '18px';
-
-  return (
-    <svg
-      width={spinnerSize}
-      height={spinnerSize}
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      style={{
-        animation: 'spin 1s linear infinite'
-      }}>
-      <circle
-        cx="12"
-        cy="12"
-        r="10"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeDasharray="31.416"
-        strokeDashoffset="31.416"
-        style={{
-          animation: 'spin-circle 1.5s ease-in-out infinite'
-        }}
-      />
-      <style>{`
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        @keyframes spin-circle {
-          0% { stroke-dasharray: 0 31.416; }
-          50% { stroke-dasharray: 15.708 15.708; }
-          100% { stroke-dasharray: 31.416 0; }
-        }
-      `}</style>
-    </svg>
-  );
-};
+/**
+ * Button Component - MyUI
+ *
+ * A highly flexible, accessible, and themeable button for React apps.
+ * Supports variants, colors, sizes, icons, loading states, custom radius, and more.
+ *
+ * Usage:
+ * <Button variant="filled" color="success" size="large" icon={<Icon />} iconAt="end">Save</Button>
+ */
 
 // Define the props that our Button component accepts
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  /** Button label or content */
   children?: React.ReactNode;
 
-  // Styling
+  /** Visual style variant */
   variant?: 'filled' | 'outlined' | 'text' | 'link' | 'icon';
+
+  /** Semantic color scheme */
   color?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info';
+
+  /** Button size */
   size?: 'small' | 'medium' | 'large';
 
-  // States
+  /** If true, button takes full width of container */
+  fullWidth?: boolean;
+
+  /** Custom border radius (e.g. '8px', '50%') */
+  radius?: string;
+
+  /** If true, icon-only button is rendered as a circle */
+  round?: boolean;
+
+  /** Disabled state */
   disabled?: boolean;
+
+  /** Loading state (shows spinner) */
   loading?: boolean;
 
-  // Icons
-  icon?: React.ReactNode;
-  iconLocation?: 'start' | 'end';
+  /** Hide spinner when loading */
+  hideSpinner?: boolean;
 
-  // Utilities
+  /** Icon element (ReactNode) */
+  icon?: React.ReactNode;
+
+  /** Icon position: 'start' (left) or 'end' (right) */
+  iconAt?: 'start' | 'end';
+
+  /** Custom inline styles */
   style?: React.CSSProperties;
+
+  /** Custom class name for styling */
   className?: string;
 }
-
-// Helper function to get styles based on variant, color, and size
-const getButtonStyles = (variant: string, color: string, size: string, disabled: boolean, loading: boolean, hasIcon: boolean, hasText: boolean) => {
-  // Base styles that apply to all buttons
-  const baseStyles: React.CSSProperties = {
-    border: 'none',
-    borderRadius: '6px',
-    cursor: disabled || loading ? 'not-allowed' : 'pointer',
-    fontFamily: 'inherit',
-    fontWeight: typography.fontWeight.medium,
-    transition: 'all 0.2s ease-in-out',
-    opacity: disabled ? 0.5 : 1,
-    outline: 'none',
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    textDecoration: 'none',
-    gap: hasIcon && hasText ? '8px' : '0'
-  };
-
-  // Size-specific styles
-  const sizeStyles: Record<string, React.CSSProperties> = {
-    small: {
-      height: hasIcon && !hasText ? '32px' : '32px',
-      padding: hasIcon && !hasText ? '0' : '0 12px',
-      fontSize: typography.fontSize.sm,
-      minWidth: hasIcon && !hasText ? '32px' : 'auto'
-    },
-    medium: {
-      height: hasIcon && !hasText ? '40px' : '40px',
-      padding: hasIcon && !hasText ? '0' : '0 16px',
-      fontSize: typography.fontSize.md,
-      minWidth: hasIcon && !hasText ? '40px' : 'auto'
-    },
-    large: {
-      height: hasIcon && !hasText ? '48px' : '48px',
-      padding: hasIcon && !hasText ? '0' : '0 20px',
-      fontSize: typography.fontSize.lg,
-      minWidth: hasIcon && !hasText ? '48px' : 'auto'
-    }
-  };
-
-  // Color mappings for each semantic color
-  const themeMap: Record<string, { main: string; hover: string; light: string }> = {
-    primary: theme.primary,
-    secondary: theme.secondary,
-    success: theme.success,
-    danger: theme.danger,
-    warning: theme.warning,
-    info: theme.info
-  };
-
-  const currentTheme = themeMap[color] || themeMap.primary;
-
-  // Variant-specific styles
-  const variantStyles: Record<string, React.CSSProperties> = {
-    filled: {
-      backgroundColor: currentTheme.main,
-      color: theme.background.white,
-      border: `1px solid ${currentTheme.main}`
-    },
-    outlined: {
-      backgroundColor: 'transparent',
-      color: currentTheme.main,
-      border: `1px solid ${currentTheme.main}`
-    },
-    text: {
-      backgroundColor: 'transparent',
-      color: currentTheme.main,
-      border: '1px solid transparent'
-    },
-    link: {
-      backgroundColor: 'transparent',
-      color: currentTheme.main,
-      border: '1px solid transparent',
-      textDecoration: 'none'
-    },
-    icon: {
-      backgroundColor: 'transparent',
-      color: currentTheme.main,
-      border: '1px solid transparent'
-    }
-  };
-
-  // Combine all styles
-  return {
-    ...baseStyles,
-    ...sizeStyles[size],
-    ...variantStyles[variant]
-  };
-};
-
-// Helper function to get hover styles
-const getHoverStyles = (variant: string, color: string) => {
-  // Color mappings for each semantic color
-  const themeMap: Record<string, { main: string; hover: string; light: string }> = {
-    primary: theme.primary,
-    secondary: theme.secondary,
-    success: theme.success,
-    danger: theme.danger,
-    warning: theme.warning,
-    info: theme.info
-  };
-
-  const currentTheme = themeMap[color] || themeMap.primary;
-
-  const hoverStyles: Record<string, React.CSSProperties> = {
-    filled: {
-      backgroundColor: currentTheme.hover,
-      borderColor: currentTheme.hover
-    },
-    outlined: {
-      backgroundColor: currentTheme.light
-    },
-    text: {
-      backgroundColor: currentTheme.light
-    },
-    link: {
-      textDecoration: 'underline'
-    },
-    icon: {
-      backgroundColor: currentTheme.light
-    }
-  };
-
-  return hoverStyles[variant];
-};
 
 // Main Button component
 export const Button: React.FC<ButtonProps> = ({
   children,
-  variant = 'filled', // Default to filled variant
-  color = 'primary', // Default to primary color
-  size = 'medium', // Default to medium size
-  disabled = false, // Default to not disabled
-  loading = false, // Default to not loading
-  icon, // Icon element
-  iconLocation = 'start', // Default icon location
-  style, // Custom styles
-  className, // CSS class name
-  ...props // Spread any additional props (including type, onClick, etc.)
+  variant = 'filled', // Default variant
+  color = 'primary', // Default color
+  size = 'medium', // Default size
+  fullWidth = false,
+  disabled = false,
+  loading = false,
+  hideSpinner = false,
+  icon,
+  iconAt = 'start',
+  style,
+  className,
+  radius,
+  round,
+  ...props
 }) => {
   // Check if we have icon and/or text
   const hasIcon = !!icon;
   const hasText = !!children;
 
   // Get the base styles for this button configuration
-  const buttonStyles = getButtonStyles(variant, color, size, disabled, loading, hasIcon, hasText);
+  const buttonStyles = getButtonStyles(variant, color, size, fullWidth, disabled, loading, hasIcon, hasText, radius, round);
   const hoverStyles = getHoverStyles(variant, color);
 
   // Merge custom styles with default styles (custom styles override defaults)
   const finalStyles = style ? { ...buttonStyles, ...style } : buttonStyles;
 
-  // Handle mouse enter (hover) event
+  // Mouse enter: apply hover styles
   const handleMouseEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!disabled && !loading) {
       const combinedHoverStyles = style ? { ...hoverStyles, ...style } : hoverStyles;
@@ -225,47 +95,51 @@ export const Button: React.FC<ButtonProps> = ({
     }
   };
 
-  // Handle mouse leave event
+  // Mouse leave: reset to original styles
   const handleMouseLeave = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!disabled && !loading) {
-      // Reset to original styles
       Object.assign(e.currentTarget.style, finalStyles);
     }
   };
 
-  // Handle focus event for accessibility
+  // Focus: show accessible focus ring
   const handleFocus = (e: React.FocusEvent<HTMLButtonElement>) => {
     if (!disabled && !loading) {
       e.currentTarget.style.boxShadow = `0 0 0 2px ${theme.primary.light}`;
     }
   };
 
-  // Handle blur event
+  // Blur: remove focus ring
   const handleBlur = (e: React.FocusEvent<HTMLButtonElement>) => {
     e.currentTarget.style.boxShadow = 'none';
   };
 
-  // Render icon and text based on iconLocation and loading state
+  // Render the button content
   const renderContent = () => {
     // Show loading spinner when loading
     if (loading) {
       return (
         <>
-          <LoadingSpinner size={size} />
-          {children && <span style={{ marginLeft: '4px' }}>{children}</span>}
+          {/* Spinner shown unless hideSpinner is true */}
+          {!hideSpinner && <RingSpinner size={size as 'small' | 'medium' | 'large'} />}
+          {/* Show children (text) if present */}
+          {children && <span>{children}</span>}
         </>
       );
     }
 
+    // Only icon
     if (!hasIcon) {
       return children;
     }
 
+    // Only text
     if (!hasText) {
       return icon;
     }
 
-    if (iconLocation === 'end') {
+    // Icon at end
+    if (iconAt === 'end') {
       return (
         <>
           {children}
@@ -274,7 +148,7 @@ export const Button: React.FC<ButtonProps> = ({
       );
     }
 
-    // Default: start position
+    // Icon at start (default)
     return (
       <>
         {icon}
@@ -283,6 +157,7 @@ export const Button: React.FC<ButtonProps> = ({
     );
   };
 
+  // Render the button element
   return (
     <button
       style={finalStyles}

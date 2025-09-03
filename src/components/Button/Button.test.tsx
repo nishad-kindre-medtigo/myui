@@ -233,7 +233,7 @@ describe('Button Component', () => {
 
     it('renders icon with text at start position explicitly', () => {
       render(
-        <Button icon={<MockIcon />} iconLocation="start">
+        <Button icon={<MockIcon />} iconAt="start">
           Button Text
         </Button>
       );
@@ -248,7 +248,7 @@ describe('Button Component', () => {
 
     it('renders icon with text at end position', () => {
       render(
-        <Button icon={<MockIcon />} iconLocation="end">
+        <Button icon={<MockIcon />} iconAt="end">
           Button Text
         </Button>
       );
@@ -430,7 +430,7 @@ describe('Button Component', () => {
     it('works with icon, custom size, variant, color, and style together', () => {
       const customStyle = { borderRadius: '20px' };
       render(
-        <Button icon={<MockIcon />} variant="filled" color="success" size="large" style={customStyle} iconLocation="end">
+        <Button icon={<MockIcon />} variant="filled" color="success" size="large" style={customStyle} iconAt="end">
           Complex Button
         </Button>
       );
