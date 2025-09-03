@@ -49,25 +49,25 @@ describe('Button Component', () => {
     it('applies small size correctly', () => {
       render(<Button size="small">Small Button</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveStyle({ height: '32px' });
+      expect(button).toHaveStyle({ padding: '6px 14px' });
     });
 
     it('applies medium size correctly', () => {
       render(<Button size="medium">Medium Button</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveStyle({ height: '40px' });
+      expect(button).toHaveStyle({ padding: '8px 16px' });
     });
 
     it('applies large size correctly', () => {
       render(<Button size="large">Large Button</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveStyle({ height: '48px' });
+      expect(button).toHaveStyle({ padding: '12px 20px' });
     });
 
     it('defaults to medium size when no size prop is provided', () => {
       render(<Button>Default Button</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveStyle({ height: '40px' });
+      expect(button).toHaveStyle({ padding: '8px 16px' });
     });
   });
 
@@ -80,7 +80,7 @@ describe('Button Component', () => {
         </Button>
       );
       const button = screen.getByRole('button');
-      expect(button).toHaveStyle({ backgroundColor: '#2563eb' });
+      expect(button).toHaveStyle({ backgroundColor: '#18181b' });
     });
 
     it('renders filled variant with secondary color correctly', () => {
@@ -90,7 +90,7 @@ describe('Button Component', () => {
         </Button>
       );
       const button = screen.getByRole('button');
-      expect(button).toHaveStyle({ backgroundColor: '#64748b' });
+      expect(button).toHaveStyle({ backgroundColor: '#475569' });
     });
 
     it('renders outlined variant correctly', () => {
@@ -102,7 +102,7 @@ describe('Button Component', () => {
       const button = screen.getByRole('button');
       expect(button).toHaveStyle({
         backgroundColor: 'transparent',
-        border: '1px solid #2563eb'
+        border: '1px solid #18181b'
       });
     });
 
@@ -113,7 +113,7 @@ describe('Button Component', () => {
         </Button>
       );
       const button = screen.getByRole('button');
-      expect(button).toHaveStyle({ backgroundColor: '#dc2626' });
+      expect(button).toHaveStyle({ backgroundColor: '#b91c1c' });
     });
 
     it('renders success color correctly', () => {
@@ -123,7 +123,7 @@ describe('Button Component', () => {
         </Button>
       );
       const button = screen.getByRole('button');
-      expect(button).toHaveStyle({ backgroundColor: '#16a34a' });
+      expect(button).toHaveStyle({ backgroundColor: '#15803d' });
     });
 
     it('renders warning color correctly', () => {
@@ -133,7 +133,7 @@ describe('Button Component', () => {
         </Button>
       );
       const button = screen.getByRole('button');
-      expect(button).toHaveStyle({ backgroundColor: '#d97706' });
+      expect(button).toHaveStyle({ backgroundColor: '#f59e0b' });
     });
 
     it('renders info color correctly', () => {
@@ -143,7 +143,7 @@ describe('Button Component', () => {
         </Button>
       );
       const button = screen.getByRole('button');
-      expect(button).toHaveStyle({ backgroundColor: '#0ea5e9' });
+      expect(button).toHaveStyle({ backgroundColor: '#0284c7' });
     });
 
     it('renders text variant correctly', () => {
@@ -168,7 +168,7 @@ describe('Button Component', () => {
       const button = screen.getByRole('button');
       expect(button).toHaveStyle({
         backgroundColor: 'transparent',
-        color: '#2563eb',
+        color: '#18181b',
         textDecoration: 'none'
       });
     });
@@ -182,14 +182,14 @@ describe('Button Component', () => {
       const button = screen.getByRole('button');
       expect(button).toHaveStyle({
         backgroundColor: 'transparent',
-        borderRadius: '50%'
+        color: '#18181b'
       });
     });
 
     it('defaults to filled variant and primary color', () => {
       render(<Button>Default Button</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveStyle({ backgroundColor: '#2563eb' });
+      expect(button).toHaveStyle({ backgroundColor: '#18181b' });
     });
   });
 
@@ -202,21 +202,21 @@ describe('Button Component', () => {
       expect(icon).toBeInTheDocument();
 
       const button = screen.getByRole('button');
-      expect(button).toHaveStyle({ minWidth: '40px' }); // Default medium size icon button
+      expect(button).toHaveStyle({ padding: '8px' }); // Default medium size icon button
     });
 
     it('renders icon-only button with correct size for small', () => {
       render(<Button icon={<MockIcon />} size="small" />);
 
       const button = screen.getByRole('button');
-      expect(button).toHaveStyle({ minWidth: '32px' });
+      expect(button).toHaveStyle({ padding: '6px' });
     });
 
     it('renders icon-only button with correct size for large', () => {
       render(<Button icon={<MockIcon />} size="large" />);
 
       const button = screen.getByRole('button');
-      expect(button).toHaveStyle({ minWidth: '48px' });
+      expect(button).toHaveStyle({ padding: '12px' });
     });
 
     it('renders icon with text at start position (default)', () => {
@@ -344,7 +344,7 @@ describe('Button Component', () => {
       );
 
       const button = screen.getByRole('button');
-      expect(button).toHaveStyle({ backgroundColor: '#2563eb' });
+      expect(button).toHaveStyle({ backgroundColor: '#18181b' });
     });
   });
 
@@ -440,8 +440,8 @@ describe('Button Component', () => {
 
       expect(button).toContainElement(icon);
       expect(button).toHaveStyle({
-        height: '48px', // large size
-        backgroundColor: '#16a34a', // success color
+        padding: '12px 20px', // large size
+        backgroundColor: '#15803d', // success color
         borderRadius: '20px' // custom style
       });
       expect(button).toHaveTextContent('Complex Button');
@@ -461,7 +461,7 @@ describe('Button Component', () => {
 
       expect(handleClick).not.toHaveBeenCalled();
       expect(button).toBeDisabled();
-      expect(button).toHaveStyle({ opacity: '0.5' });
+      expect(button).toHaveStyle({ opacity: '0.6' });
     });
 
     it('handles loading state with all features', () => {

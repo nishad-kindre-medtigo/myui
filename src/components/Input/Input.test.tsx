@@ -126,8 +126,8 @@ describe('Input Component', () => {
     render(<Input placeholder="Outlined input" />);
     const input = screen.getByRole('textbox');
     // Outlined should have a border (not transparent)
-    expect(input).toHaveStyle('border');
-    expect(input).toHaveStyle('background-color');
+    expect(input).toHaveStyle('border: 1px solid #e2e8f0');
+    expect(input).toHaveStyle('background-color: #fff');
   });
 
   // Test 14: Filled variant renders with correct styles
@@ -135,7 +135,7 @@ describe('Input Component', () => {
     render(<Input variant="filled" placeholder="Filled input" />);
     const input = screen.getByRole('textbox');
     // Filled should have background color set to gray and border transparent if not error
-    expect(input).toHaveStyle('background-color');
-    expect(input).toHaveStyle('border');
+    expect(input).toHaveStyle('background-color: #f8fafc');
+    expect(input).toHaveStyle('border: 1px solid transparent');
   });
 });
